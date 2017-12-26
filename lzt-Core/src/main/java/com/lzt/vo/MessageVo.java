@@ -12,6 +12,7 @@ public class MessageVo {
 
     public static final String SUCCESS="000000";
     public static final String ERROR="000002";
+    public static final String PASSWORD_ERROR="000003";
 
     private String code = "000000";
     private Object data;

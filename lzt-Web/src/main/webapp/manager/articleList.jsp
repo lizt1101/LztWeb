@@ -80,7 +80,8 @@
         <th data-options="field:'title'" width="20" align="center" halign="center">标题</th>
         <th data-options="field:'content'" width="50" align="center" halign="center" formatter="subContent">内容</th>
         <th data-options="field:'userName'" width="10" align="center" halign="center">作者</th>
-        <th data-options="field:'createTime'" width="20" align="center" halign="center">创建时间</th>
+        <th data-options="field:'createTime'" width="20" align="center" halign="center">发表时间</th>
+        <th data-options="field:'updateBy'" width="10" align="center" halign="center">更新者</th>
         <th data-options="field:'updateTime'" width="20" align="center" halign="center">更新时间</th>
         <th data-options="field:'typeName'" width="10" align="center" halign="center">类别</th>
         <th data-options="field:'id'" width="10" align="center" halign="center" formatter="lookOrUpdate">操作</th>

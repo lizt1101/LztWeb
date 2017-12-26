@@ -7,6 +7,7 @@
     <script type="text/javascript" src="${ctx}/static/easyui/jquery.min.js"></script>
     <link rel="stylesheet" href="${ctx}/static/bootStrap/css/bootstrap.min.css">
     <script src="${ctx}/static/bootStrap/js/bootstrap.min.js"></script>
+    <script src="${ctx}/js/login.js"></script>
     <style>
         #MyDiv{
             margin: 0;
@@ -33,72 +34,6 @@
             font-size: 14px;
         }
     </style>
-    <script>
-        var regex1 = /^[A-Za-z0-9]{6,11}$/;
-        var regex2 = /^[A-Za-z0-9.@!*&$#_]{6,13}$/;
-       function check(form){
-           if(form.userName.value.trim()=='') {
-               form.userName.focus();
-               $(".remind1").attr("style", "color:red");
-               $(".remind1").text("请输入用户名");
-               return false;
-           }
-           if(form.password.value.trim()==''){
-               form.password.focus();
-               $(".remind2").attr("style","color:red");
-               $(".remind2").text("请输入登录密码");
-               return false;
-           }
-           if(form.code.value.trim()==''){
-               form.password.focus();
-               $(".remind3").attr("style","color:red");
-               $(".remind3").text("请输入验证码");
-               return false;
-           }
-           return true;
-       }
-       function checkUsername(){
-          if($("#username").val().length>5){
-              if($("#username").val().match(regex1)==null){
-                  $(".remind1").attr("style","color:red");
-                  $(".remind1").text("用户名只能是字母数字组合!");
-                  return false;
-              }
-               $(".remind1").attr("style","display:none");
-               return true;
-           }else{
-              $(".remind1").attr("style","color:red");
-              $(".remind1").text("用户名不能少于6位字符!");
-              return false;
-          }
-       }
-       function checkPassword(){
-           if($("#password").val().length>5){
-               if($("#password").val().match(regex2)==null){
-                   $(".remind2").attr("style","color:red");
-                   $(".remind2").text("密码符号错误!");
-                   return false;
-               }
-               $(".remind2").attr("style","display:none");
-               return true;
-           }else{
-               $(".remind2").attr("style","color:red");
-               $(".remind2").text("密码长度不能少于6位字符!");
-               return false;
-           }
-       }
-       function checkCode(){
-           if($("#code").val().length==4){
-               $(".remind3").attr("style","display:none");
-               return true;
-           }else{
-               $(".remind3").attr("style","color:red");
-               $(".remind3").text("请输入四位验证码!");
-               return false;
-           }
-
-       }
-    </script>
 </head>
 
 <body style="width:100%;height:100%;">
@@ -119,11 +54,6 @@
                     <input type="text" name="code" class="form-control" value="${param.code}" maxlength="4" style="display: inline;height: 50px;width:250px;font-size: 16px;background-color:rgba(255,255,255,0.4)" id="code" placeholder="请输入验证码" onblur="checkCode()">
                     <img src="${ctx}/Login/getCode.do" onclick="this.setAttribute('src','${ctx}/Login/getCode.do?x='+Math.random());"
                          alt="验证码" title="点击更换" />
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> 记住我
-                    </label>
                 </div>
                 <span style="color: red;font-size: 14px">${error}</span><br>
                 <button type="submit" class="btn btn-info" style="float: right;font-size: 17px">登&nbsp&nbsp陆</button>

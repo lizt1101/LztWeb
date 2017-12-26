@@ -1,5 +1,6 @@
 package com.lzt.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="lzt_user")
-public class User {
+public class User implements Serializable{
 	
 	private Integer id;
 	private String username;
@@ -19,7 +20,7 @@ public class User {
 	private String description;
 	private Timestamp createTime;
 	private Timestamp updateTime;
-	private String userImg;
+	private String headImg;
 	private Integer status;
 	
 	@Id
@@ -77,15 +78,16 @@ public class User {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
-	
-	@Column(name="user_img")
-	public String getUserImg() {
-		return userImg;
+
+	@Column(name="head_image")
+	public String getHeadImg() {
+		return headImg;
 	}
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
-	
+
 	@Column(name="user_status")
 	public Integer getStatus() {
 		return status;
@@ -93,10 +95,19 @@ public class User {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", nickname=" + nickname
-				+ ", description=" + description + ", createTime=" + createTime + ", updateTime=" + updateTime
-				+ ", userImg=" + userImg + ", status=" + status + "]";
+		return "User{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", nickname='" + nickname + '\'' +
+				", description='" + description + '\'' +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				", headImg='" + headImg + '\'' +
+				", status=" + status +
+				'}';
 	}
 }

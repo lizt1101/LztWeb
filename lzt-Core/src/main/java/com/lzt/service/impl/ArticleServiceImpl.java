@@ -2,24 +2,22 @@ package com.lzt.service.impl;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.lzt.entity.User;
 import com.lzt.exception.LztException;
-import com.lzt.vo.ArtVo;
 import com.lzt.vo.MessageVo;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.util.CollectionUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lzt.dao.ArticleDao;
-import com.lzt.dto.ArticleDto;
 import com.lzt.entity.Article;
 import com.lzt.service.ArticleService;
 import com.lzt.solrClient.CommontData;
@@ -44,7 +42,9 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 		art.setUpdateTime(nowDate);
 		art.setStatus(0);
-		art.setUserId(1);
+		User user = (User) SecurityUtils.getSubject().getSession().getAttribute("CurrentUser");
+		art.setUserId(user.getId());
+		art.setUpdateBy(user.getId());
 		//保存OR更新
 		Article article = articleDao.saveArt(art);
 		if(article==null){

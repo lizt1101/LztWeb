@@ -2,9 +2,11 @@ package com.lzt.service.impl;
 
 import com.lzt.dao.TypeDao;
 import com.lzt.entity.Type;
+import com.lzt.entity.User;
 import com.lzt.exception.LztException;
 import com.lzt.service.TypeService;
 import com.lzt.vo.MessageVo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +46,8 @@ public class TypeServiceImpl implements TypeService{
             type.setIsDelete("0");
         }
         type.setUpdateDate(date);
-        type.setCreateBy(1);
+        User user = (User) SecurityUtils.getSubject().getSession().getAttribute("CurrentUser");
+        type.setCreateBy(user.getId());
         Integer i = typeDao.saveOrUpdate(type);
         if(i==null || i<1){
            throw new LztException(MessageVo.ERROR,"保存失败");

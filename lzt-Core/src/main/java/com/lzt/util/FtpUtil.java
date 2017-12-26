@@ -87,7 +87,7 @@ public class FtpUtil {
     public static void main(String[] args) throws FileNotFoundException {
     	//上传
     	InputStream is = new FileInputStream("F://1.txt");
-    	boolean a = FtpUtil.uploadFile("172.31.61.51",21,null,null,
+    	boolean a = FtpUtil.uploadFile("172.31.61.19",21,null,null,
     			"/java", "/2017-11-23","123.txt",is);
     	System.out.println(a);
 

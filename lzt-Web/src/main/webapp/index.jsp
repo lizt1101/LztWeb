@@ -34,7 +34,9 @@
 		<input type="file" name="uploadFile">
 		<input type="submit" value="上传">
 	</form>--%>
-	<img  src="http://172.31.61.51:9090/java/1.jpg" style="width:200px;height:200px"/>
+<%--http://172.31.61.19:9091/lztWeb/1513839273878lzt.jpg--%>
+<img src="http://172.31.61.19:9091/lztWeb/admin1/1513839273878lzt.jpg"/>
+	<img  src="http://172.31.61.19:9091/java/1.jpg" style="width:200px;height:200px"/>
 	<a href="#" onclick="down('1.jpg')">下载</a>
 	
 	<form action="serach.do"  method="post" >

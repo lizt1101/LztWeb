@@ -22,6 +22,7 @@ public class Article {
 	private Integer typeId;
 	private String sign;
 	private String contentText;
+	private Integer updateBy;
 
 	@Id
 	@GeneratedValue
@@ -77,6 +78,12 @@ public class Article {
 	}
 	public void setSign(String sign) {
 		this.sign = sign;
+	}
+	public Integer getUpdateBy() {
+		return updateBy;
+	}
+	public void setUpdateBy(Integer updateBy) {
+		this.updateBy = updateBy;
 	}
 
 	@Column(name="content_text")

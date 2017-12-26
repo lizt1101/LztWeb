@@ -19,6 +19,15 @@ public class ArtVo {
     private String typeName;
     private Timestamp createTime;
     private Timestamp updateTime;
+    private String updateBy;
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
 
     public Integer getId() {
         return id;
