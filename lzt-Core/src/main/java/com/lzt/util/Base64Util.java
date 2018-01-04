@@ -17,10 +17,45 @@ public class Base64Util {
 
     public static void main(String[] args)
     {
-        String strImg = GetImageStr();
+      /*  String strImg = GetImageStr();
         System.out.println(strImg);
-        GenerateImage(strImg);
+        GenerateImage(strImg);*/
+        System.out.println(Base64Util.getBase64("lzt2017年11月"));
+        System.out.println(Base64Util.getFromBase64("bHp0MjAxN+W5tDEx5pyI"));
     }
+
+    // 加密
+    public static String getBase64(String str) {
+        byte[] b = null;
+        String s = null;
+        try {
+            b = str.getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (b != null) {
+            s = new BASE64Encoder().encode(b);
+        }
+        return s;
+    }
+
+    //解码base64
+    public static String getFromBase64(String s){
+        byte[] b = null;
+        String result = null;
+        if (s != null) {
+            BASE64Decoder decoder = new BASE64Decoder();
+            try {
+                b = decoder.decodeBuffer(s);
+                result = new String(b, "utf-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+
     //图片转化成base64字符串
     public static String GetImageStr()
     {//将图片文件转化为字节数组字符串，并对其进行Base64编码处理

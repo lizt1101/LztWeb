@@ -1,13 +1,18 @@
 package com.lzt.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lzt.entity.ArtCount;
+import com.lzt.entity.Type;
 import com.lzt.exception.LztException;
+import com.lzt.service.ArtCountService;
+import com.lzt.service.TypeService;
 import com.lzt.system.RestServer;
 import com.lzt.util.JsonUtil;
 import com.lzt.vo.MessageVo;
@@ -16,10 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.lzt.dto.ArticleDto;
@@ -37,7 +39,20 @@ public class ArticleController {
 	
 	@Autowired
 	private ArticleService articleService;
-	
+
+	@Autowired
+	private TypeService typeService;
+
+	@Autowired
+	private ArtCountService artCountService;
+
+	/**
+	 * 发表修改文章
+	 * @param article
+	 * @param res
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping("/saveArt.do")
 	public String saveArticle(Article article, HttpServletRequest res,HttpServletResponse req){
 		log.info("保存文章,入参:"+article.toString());
@@ -54,7 +69,47 @@ public class ArticleController {
 		restServer.send(JsonUtil.jsonToString(messageVo));
 		return null;
 	}
-	
+
+	/**
+	 * 获取详情
+	 * @param artId
+	 * @param res
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/getArtDetails/{artId}")
+	public String getArtDetails(@PathVariable("artId") String artId, HttpServletRequest req, HttpServletResponse res){
+		log.info("获取前端页面详情,入参:"+artId);
+		Article article = articleService.getDetail(Integer.parseInt(artId));
+		Type type = typeService.getType(article.getTypeId());
+		req.setAttribute("typeName",type.getTypeName());
+		List<String> keylist = new ArrayList<String>();
+		if(article.getSign() != null){
+			String[] keys = article.getSign().split(",");
+			for(String s:keys){
+				keylist.add(s);
+			}
+		}
+		req.setAttribute("keys",keylist);
+		Article lastarticle = articleService.getLastDetail(Integer.parseInt(artId));
+		Article nextarticle = articleService.getNextDetail(Integer.parseInt(artId));
+		String pageBean = pageUitl.getLastAndNextPage(lastarticle,nextarticle,req.getContextPath());
+		req.setAttribute("pageBean",pageBean);
+		req.setAttribute("article",article);
+		//增加阅读次数
+		ArtCount artCount = new ArtCount();
+		artCount.setArtId(Integer.parseInt(artId));
+		artCount.setLook(1);
+		try {
+			Integer reads = artCountService.updateArtCount(artCount);
+			req.setAttribute("reads",reads);
+		} catch (LztException e) {
+			e.printStackTrace();   //跳转到错误页面
+		}
+		return "mainPage/artDetails";
+
+	}
+
 	@RequestMapping("/serach.do")
 	public String serachArticle(HttpServletRequest res,HttpServletResponse req){
 		String keyword = res.getParameter("keyword");
@@ -79,7 +134,7 @@ public class ArticleController {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("/getArticle.do")
+	/*@RequestMapping("/getArticle.do")
 	public String getPageArticle(@RequestParam(value="Start",required=false) String Start,HttpServletRequest res,HttpServletResponse req){
 		log.info("分页查询文章开始"+Start);
 		if(Start==null){
@@ -97,7 +152,7 @@ public class ArticleController {
 		res.setAttribute("pageCode", pageCode);
 		return "articleIndex";
 		
-	}
+	}*/
 	
 	
 	

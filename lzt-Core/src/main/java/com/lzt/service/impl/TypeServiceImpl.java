@@ -61,4 +61,9 @@ public class TypeServiceImpl implements TypeService{
             throw new LztException(MessageVo.ERROR,"删除失败");
         }
     }
+
+    @Override
+    public Type getType(Integer id) {
+        return typeDao.getType(id);
+    }
 }

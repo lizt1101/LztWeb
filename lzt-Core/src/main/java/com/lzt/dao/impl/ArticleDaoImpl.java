@@ -5,14 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lzt.Bo.TimeCountBo;
+import com.lzt.Bo.typeCountBo;
 import com.lzt.entity.User;
 import com.lzt.util.DateUtil;
 import com.lzt.vo.ArtVo;
 import org.apache.shiro.SecurityUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.DateType;
 import org.hibernate.type.IntegerType;
 import org.hibernate.type.StringType;
 import org.hibernate.type.TimestampType;
@@ -65,16 +69,24 @@ public class ArticleDaoImpl extends AllDaoImpl<Article> implements ArticleDao {
 	}
 
 	@Override
-	public Map<String, Object> getPageArticleList(Integer start, Integer pageSize) {
-		String sql = "SELECT a.id id,a.`title` title,a.`content_text` content,a.`createTime` createTime,a.`updateTime` updateTime,b.`type_name` typeName,d.user_name updateBy,c.`user_name` userName \n" +
+	public Map<String, Object> getPageArticleList(Integer start, Integer pageSize,Integer type,String time) {
+		String sql = "SELECT a.id id,a.`title` title,a.`content_text` content,a.content bContent,a.`createTime` createTime," +
+				"a.`updateTime` updateTime,b.`type_name` typeName,d.user_name updateBy,c.`user_name` userName \n" +
 				"FROM `lzt_article` a " +
 				"LEFT JOIN `lzt_type` b ON a.`typeId`=b.`id` " +
 				"LEFT JOIN `lzt_user` c ON a.`userId`=c.`id` " +
 				"LEFT JOIN `lzt_user` d ON d.`id`=a.updateBy " +
-				"where a.status=0 ORDER BY a.`updateTime` desc";
+				"where a.status=0";
+		if(type!=null){
+			sql += " and a.typeId="+type;
+		}
+		if(time!=null){
+			sql += " and DATE_FORMAT(a.`createTime`,'%Y年%m月')='"+time+"'";
+		}
+		sql += " ORDER BY a.`updateTime` desc";
 		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql)
 				.addScalar("id", IntegerType.INSTANCE).addScalar("title", StringType.INSTANCE).addScalar("content",StringType.INSTANCE)
-				.addScalar("createTime", TimestampType.INSTANCE).addScalar("updateTime",TimestampType.INSTANCE)
+				.addScalar("bContent",StringType.INSTANCE).addScalar("createTime", TimestampType.INSTANCE).addScalar("updateTime",TimestampType.INSTANCE)
 				.addScalar("typeName",StringType.INSTANCE).addScalar("userName",StringType.INSTANCE).addScalar("updateBy",StringType.INSTANCE)
 				.setResultTransformer(Transformers.aliasToBean(ArtVo.class));
 		Integer allCount = query.list().size();
@@ -115,5 +127,51 @@ public class ArticleDaoImpl extends AllDaoImpl<Article> implements ArticleDao {
 			return null;
 		}
 		return totalCount.intValue();
+	}
+
+	@Override
+	public Article getLastdetail(Integer id) {
+		Criteria criteria = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Article.class);
+		criteria.add(Restrictions.lt("id",id));
+		criteria.addOrder(Order.desc("id")).setMaxResults(1);
+		if(criteria.list().size() < 1){
+			return null;
+		}
+		return (Article)criteria.list().get(0);
+	}
+
+	@Override
+	public Article getNextdetail(Integer id) {
+		Criteria criteria = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Article.class);
+		criteria.add(Restrictions.gt("id",id));
+		criteria.addOrder(Order.asc("id")).setMaxResults(1);
+		if(criteria.list().size() < 1){
+			return null;
+		}
+		return (Article)criteria.list().get(0);
+	}
+
+	@Override
+	public List<typeCountBo> getTypeCount() {
+		String sql = "SELECT a.`typeId`,COUNT(*) counts FROM `lzt_article` a where a.status=0 GROUP BY a.`typeId`";
+		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql)
+				.addScalar("typeId",IntegerType.INSTANCE).addScalar("counts",IntegerType.INSTANCE)
+				.setResultTransformer(Transformers.aliasToBean(typeCountBo.class));
+		if(query.list().size()<1){
+			return null;
+		}
+		return query.list();
+	}
+
+	@Override
+	public List<TimeCountBo> getTimeCount() {
+		String sql = "SELECT DATE_FORMAT(a.`createTime`,'%Y年%m月') time,COUNT(*) count FROM `lzt_article` a WHERE a.status=0 GROUP BY DATE_FORMAT(a.`createTime`,'%Y年%m月')";
+		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql)
+				.addScalar("time", StringType.INSTANCE).addScalar("count",IntegerType.INSTANCE)
+				.setResultTransformer(Transformers.aliasToBean(TimeCountBo.class));
+		if(query.list().size()<1){
+			return null;
+		}
+		return query.list();
 	}
 }

@@ -53,7 +53,7 @@ public class ArticleManagerController {
     @RequestParam(value="rows",required=false)String rows,Article article, HttpServletRequest res, HttpServletResponse req){
         RestServer restServer = new RestServer(res,req);
         log.info("获取文章列表,入参page:"+page+",rows:"+rows);
-        Map<String,Object> artMap = articleService.getPageArticleList(Integer.parseInt(page),Integer.parseInt(rows));
+        Map<String,Object> artMap = articleService.getPageArticleList1(Integer.parseInt(page),Integer.parseInt(rows));
         Map<String,Object> resultMap = new HashMap<String,Object>();
         resultMap.put("rows",artMap.get("artList"));
         Page page1 = (Page)artMap.get("page");

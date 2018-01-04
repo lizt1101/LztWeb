@@ -80,4 +80,11 @@ public class TypeDaoImpl extends AllDaoImpl<Type> implements TypeDao {
         i = query.executeUpdate();
         return i;
     }
+
+    @Override
+    public Type getType(Integer id) {
+        Criteria criteria = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Type.class);
+        criteria.add(Restrictions.eq("id",id));
+        return (Type)criteria.list().get(0);
+    }
 }

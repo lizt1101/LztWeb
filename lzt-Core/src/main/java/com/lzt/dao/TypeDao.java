@@ -12,9 +12,10 @@ public interface TypeDao extends AllDao<Type>{
 	public Map<String,Object> getPageTypeList(Integer page, Integer rows);
 
 	public Integer saveOrUpdate(Type type);
+
 	public Integer deletetype(Integer id);
 
-	
+	public Type getType(Integer id);
 
 
 }

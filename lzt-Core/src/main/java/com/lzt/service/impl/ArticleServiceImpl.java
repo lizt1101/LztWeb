@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.lzt.Bo.TimeCountBo;
+import com.lzt.Bo.typeCountBo;
 import com.lzt.entity.User;
 import com.lzt.exception.LztException;
 import com.lzt.vo.MessageVo;
@@ -80,8 +82,18 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public Map<String,Object> getPageArticleList(Integer start, Integer pagesize) {
-		Map<String,Object> resultMap = articleDao.getPageArticleList(start, pagesize);
+	public Map<String,Object> getPageArticleList(Integer start, Integer pagesize,String type,String time) {
+		Integer typeId = null;
+		if(type != null){
+			typeId = Integer.parseInt(type);
+		}
+		Map<String,Object> resultMap = articleDao.getPageArticleList(start, pagesize,typeId,time);
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> getPageArticleList1(Integer start, Integer pagesize) {
+		Map<String,Object> resultMap = articleDao.getPageArticleList(start, pagesize,null,null);
 		return resultMap;
 	}
 
@@ -110,6 +122,28 @@ public class ArticleServiceImpl implements ArticleService {
 		if(i != null){
 			throw new LztException("000003","该分类下有文章,不能删除该分类!");
 		}
+	}
+
+
+	@Override
+	public Article getLastDetail(Integer id) {
+		return articleDao.getLastdetail(id);
+	}
+
+	@Override
+	public Article getNextDetail(Integer id) {
+		Article a = articleDao.getNextdetail(id);
+		return a;
+	}
+
+	@Override
+	public List<typeCountBo> getTypeCount() {
+		return articleDao.getTypeCount();
+	}
+
+	@Override
+	public List<TimeCountBo> getTimeCount() {
+		return articleDao.getTimeCount();
 	}
 }
 

@@ -20,6 +20,7 @@ public class ArtVo {
     private Timestamp createTime;
     private Timestamp updateTime;
     private String updateBy;
+    private String bContent;
 
     public String getUpdateBy() {
         return updateBy;
@@ -83,5 +84,13 @@ public class ArtVo {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getBcontent() {
+        return bContent;
+    }
+
+    public void setBcontent(String bContent) {
+        this.bContent = bContent;
     }
 }

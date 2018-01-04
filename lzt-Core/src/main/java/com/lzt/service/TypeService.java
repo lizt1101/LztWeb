@@ -24,4 +24,6 @@ public interface TypeService {
 
     public void deleteType(Integer id) throws LztException;
 
+    public Type getType(Integer id);
+
 }

@@ -95,6 +95,7 @@ public class Article {
 		this.contentText = contentText;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Article{" +
