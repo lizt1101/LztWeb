@@ -178,3 +178,76 @@
 .icon-imglist{
 	background:url('usericons/imglist.png') no-repeat center center;
 }
+.icon-pageedit{
+	  background:url("usericons/page_edit.png") no-repeat center center;
+  }
+
+.icon-pencil{
+	background:url("usericons/pencil.png") no-repeat center center;
+}
+.icon-user{
+	background:url("usericons/user.png") no-repeat center center;
+}
+.icon-user_go{
+	background:url("usericons/user_go.png") no-repeat center center;
+}
+.icon-gd{
+	background:url("usericons/rainbow.png") no-repeat center center;
+}
+.icon-world{
+	background:url("usericons/world.png") no-repeat center center;
+}
+.icon-comments{
+	background:url("usericons/comments.png") no-repeat center center;
+}
+.icon-comment{
+	background:url("usericons/user_comment.png") no-repeat center center;
+}
+.icon-arrow_refresh{
+	background: url("usericons/arrow_refresh.png") no-repeat center center;
+}
+.icon-lunbo{
+	background: url("usericons/photos.png") no-repeat center center;
+}
+.icon-lunboAdd{
+	background: url("usericons/photo_add.png") no-repeat center center;
+}
+.icon-addQitaImage{
+	background: url("usericons/addQtImages.png") no-repeat center center;
+}
+.icon-addQitaImages{
+	background: url("usericons/image_add_qita.png") no-repeat center center;
+}
+.icon-allList{
+	background: url("usericons/lzt_all.png") no-repeat center center;
+}
+.icon-stopList{
+	background: url("usericons/lzt_stop.png") no-repeat center center;
+}
+.icon-showList{
+	background: url("usericons/lzt_show.png") no-repeat center center;
+}
+.icon_lzt_delete{
+	background: url("usericons/delete.png") no-repeat center center;
+}
+.icon_lzt_find{
+	background: url("usericons/find.png") no-repeat center center;
+}
+.icon_lzt_edit{
+	background: url("usericons/edit.png") no-repeat center center;
+}
+.icon_stopLogin{
+	background: url("usericons/stopLogin.png") no-repeat center center;
+}
+.icon_startLogin{
+	background: url("usericons/startLogin.png") no-repeat center center;
+}
+.icon_cancel{
+	background: url("usericons/cancel.png") no-repeat center center;
+}
+.icon_lztShow{
+	background: url("usericons/lzt_show.png") no-repeat center center;
+}
+.icon_lztStop{
+	background: url("usericons/lzt_stop.png") no-repeat center center;
+}

@@ -78,7 +78,7 @@
         <input type="hidden" id="contentText" name="contentText"/>
         <div class="form-group">
             <label for="title">标题:</label>
-            <input class="form-control" id="title" type="text" name="title" style="width:400px;"/>
+            <input class="form-control" id="title" type="text" maxlength="30" name="title" style="width:400px;"/>
         </div>
         <div class="form-group">
             <label for="type">分类:</label>

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lzt.Bo.PingCountBo;
+import com.lzt.Bo.ReadCountBo;
 import com.lzt.Bo.TimeCountBo;
 import com.lzt.Bo.typeCountBo;
 import com.lzt.entity.User;
@@ -71,7 +73,7 @@ public class ArticleDaoImpl extends AllDaoImpl<Article> implements ArticleDao {
 	@Override
 	public Map<String, Object> getPageArticleList(Integer start, Integer pageSize,Integer type,String time) {
 		String sql = "SELECT a.id id,a.`title` title,a.`content_text` content,a.content bContent,a.`createTime` createTime," +
-				"a.`updateTime` updateTime,b.`type_name` typeName,d.user_name updateBy,c.`user_name` userName \n" +
+				"a.`updateTime` updateTime,b.`type_name` typeName,d.user_name updateBy,c.`user_name` userName,c.nick_name nickName \n" +
 				"FROM `lzt_article` a " +
 				"LEFT JOIN `lzt_type` b ON a.`typeId`=b.`id` " +
 				"LEFT JOIN `lzt_user` c ON a.`userId`=c.`id` " +
@@ -88,7 +90,7 @@ public class ArticleDaoImpl extends AllDaoImpl<Article> implements ArticleDao {
 				.addScalar("id", IntegerType.INSTANCE).addScalar("title", StringType.INSTANCE).addScalar("content",StringType.INSTANCE)
 				.addScalar("bContent",StringType.INSTANCE).addScalar("createTime", TimestampType.INSTANCE).addScalar("updateTime",TimestampType.INSTANCE)
 				.addScalar("typeName",StringType.INSTANCE).addScalar("userName",StringType.INSTANCE).addScalar("updateBy",StringType.INSTANCE)
-				.setResultTransformer(Transformers.aliasToBean(ArtVo.class));
+				.addScalar("nickName",StringType.INSTANCE).setResultTransformer(Transformers.aliasToBean(ArtVo.class));
 		Integer allCount = query.list().size();
 		int limit = (start-1)*pageSize;
 		query.setFirstResult(limit);
@@ -100,9 +102,33 @@ public class ArticleDaoImpl extends AllDaoImpl<Article> implements ArticleDao {
 		return artMap;
 	}
 
+	@Override
+	public List<ArtVo> getArtVoList(List<Integer> ids) {
+		String sql = "SELECT a.id id,a.`title` title,a.`content_text` content,a.content bContent,a.`createTime` createTime," +
+				"a.`updateTime` updateTime,b.`type_name` typeName,d.user_name updateBy,c.`user_name` userName,c.nick_name nickName \n" +
+				"FROM `lzt_article` a " +
+				"LEFT JOIN `lzt_type` b ON a.`typeId`=b.`id` " +
+				"LEFT JOIN `lzt_user` c ON a.`userId`=c.`id` " +
+				"LEFT JOIN `lzt_user` d ON d.`id`=a.updateBy " +
+				"where a.status=0 and a.id in (:ids)";
+		sql += " ORDER BY a.`updateTime` desc";
+		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql)
+				.addScalar("id", IntegerType.INSTANCE).addScalar("title", StringType.INSTANCE).addScalar("content",StringType.INSTANCE)
+				.addScalar("bContent",StringType.INSTANCE).addScalar("createTime", TimestampType.INSTANCE).addScalar("updateTime",TimestampType.INSTANCE)
+				.addScalar("typeName",StringType.INSTANCE).addScalar("userName",StringType.INSTANCE).addScalar("updateBy",StringType.INSTANCE)
+				.addScalar("nickName",StringType.INSTANCE).setParameterList("ids",ids).setResultTransformer(Transformers.aliasToBean(ArtVo.class));
+		if(query.list().size()<1){
+			return null;
+		}
+		return query.list();
+	}
+
 	public Article getdetail(Integer id){
 		Criteria criteria = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(Article.class);
 		criteria.add(Restrictions.eq("id",id));
+		if(criteria.list().size()<1){
+			return null;
+		}
 		Article article = (Article)criteria.list().get(0);
 		return article;
 	}
@@ -169,6 +195,28 @@ public class ArticleDaoImpl extends AllDaoImpl<Article> implements ArticleDao {
 		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql)
 				.addScalar("time", StringType.INSTANCE).addScalar("count",IntegerType.INSTANCE)
 				.setResultTransformer(Transformers.aliasToBean(TimeCountBo.class));
+		if(query.list().size()<1){
+			return null;
+		}
+		return query.list();
+	}
+
+	@Override
+	public List<ReadCountBo> getReadCount() {
+		String sql = "SELECT a.id,a.`title`,b.`look` FROM `lzt_article` a,`lzt_art_count` b WHERE a.`id`=b.`artId` AND b.`look`>0 ORDER BY b.`look` DESC LIMIT 10";
+		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql);
+		query.setResultTransformer(Transformers.aliasToBean(ReadCountBo.class));
+		if(query.list().size()<1){
+			return null;
+		}
+		return query.list();
+	}
+
+	@Override
+	public List<PingCountBo> getpingCount() {
+		String sql = "SELECT a.id,a.`title`,b.`ping` FROM `lzt_article` a,`lzt_art_count` b WHERE a.`id`=b.`artId` AND b.`ping`>0 ORDER BY b.`ping` DESC LIMIT 10;";
+		Query query = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(sql);
+		query.setResultTransformer(Transformers.aliasToBean(PingCountBo.class));
 		if(query.list().size()<1){
 			return null;
 		}

@@ -44,12 +44,21 @@ public class ArtCountServiceImpl implements ArtCountService {
     }
 
     @Override
-    public Integer getArtReadCount(Integer artId) {
+    public Integer getArtReadCount(Integer artId,Integer type) {
         ArtCount artCount1 = artCountDao.getArtCount(artId);
+        Integer count = null;
         if(artCount1==null){
-            return 0;
+            count = 0;
         }else{
-            return artCount1.getLook();
+            if(type==1){
+                count = artCount1.getLook();
+            }else if(type==2){
+                count = artCount1.getPing();
+            }else{
+                count = artCount1.getZan();
+            }
+
         }
+        return count;
     }
 }

@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.lzt.dao.BjImageDao;
 import com.lzt.entity.User;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +30,9 @@ public class UploadServiceImpl implements UploadService {
 	private String password;
 	@Value("${ftp.baseImgUrl}")
 	private String baseImgUrl;
+
+	@Autowired
+	private BjImageDao bjImageDao;
 
 	@Override
 	public boolean upload(MultipartFile uploadFile) throws NumberFormatException, IOException {
@@ -67,6 +72,41 @@ public class UploadServiceImpl implements UploadService {
 		boolean flag = FtpUtil.uploadFile(IP, Integer.parseInt(port),
 				username, password, baseUrl, filePath,
 				file.substring(4), new FileInputStream(file));
+		if(flag){
+			System.out.println("成功");
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean uploadBjImage(MultipartFile file,Integer maxId) throws IOException {
+		String oldname = file.getOriginalFilename();
+		//基础目录
+		String baseUrl = baseImgUrl;
+		String filePath ="/bj";
+		Integer newId = maxId+1;
+		String newname = "bj"+newId+oldname.substring(oldname.lastIndexOf("."));
+		boolean flag = FtpUtil.uploadFile(IP, Integer.parseInt(port),
+				username, password, baseUrl, filePath,
+				newname, file.getInputStream());
+		if(flag){
+			System.out.println("成功");
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean uploadLBImage(MultipartFile file,String newFileName,String filePath) throws IOException {
+		//基础目录
+		String baseUrl = baseImgUrl;
+		/*String filePath ="/lunbo";*/
+		boolean flag = FtpUtil.uploadFile(IP, Integer.parseInt(port),
+				username, password, baseUrl, filePath,
+				newFileName, file.getInputStream());
 		if(flag){
 			System.out.println("成功");
 			return true;

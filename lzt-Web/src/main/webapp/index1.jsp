@@ -39,7 +39,7 @@
 	<img  src="http://172.31.61.19:9091/java/1.jpg" style="width:200px;height:200px"/>
 	<a href="#" onclick="down('1.jpg')">下载</a>
 	
-	<form action="serach.do"  method="post" >
+	<form action="article/serach.do"  method="post" >
 		<input type="text" name="keyword"/>
 		<input type="submit" value="搜索">
 	</form>

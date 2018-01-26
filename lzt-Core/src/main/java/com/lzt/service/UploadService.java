@@ -16,4 +16,8 @@ public interface UploadService {
 
 	public boolean uploadHeadImage(String file) throws FileNotFoundException;
 
+	public boolean uploadBjImage(MultipartFile  file,Integer maxId) throws IOException;
+
+	public boolean uploadLBImage(MultipartFile  file,String newFileName,String filePath) throws IOException;
+
 }

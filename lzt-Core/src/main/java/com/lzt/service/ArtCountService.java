@@ -15,6 +15,6 @@ public interface ArtCountService {
 
     public Integer updateArtCount(ArtCount artCount) throws LztException;
 
-    public Integer getArtReadCount(Integer artId);
+    public Integer getArtReadCount(Integer artId,Integer countType);
 
 }

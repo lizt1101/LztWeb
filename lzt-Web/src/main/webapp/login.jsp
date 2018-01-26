@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>登陆</title>
+    <link rel="shortcut icon" href="${ctx}/lztlogo1.ico" type="image/x-icon" />
     <script type="text/javascript" src="${ctx}/static/easyui/jquery.min.js"></script>
     <link rel="stylesheet" href="${ctx}/static/bootStrap/css/bootstrap.min.css">
     <script src="${ctx}/static/bootStrap/js/bootstrap.min.js"></script>

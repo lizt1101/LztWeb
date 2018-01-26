@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.lzt.solrClient.CommontData;
+import com.lzt.solrEntity.ArticleResult;
+import com.lzt.util.Page;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -22,7 +25,7 @@ public class solrTest {
 	
 	@Before
 	public void init(){
-		URL =  "http://localhost:8080/solr/my";
+		URL =  "http://127.0.0.1:8080/solr/my";
 	}
 
 	@Test
@@ -69,15 +72,18 @@ public class solrTest {
 	public void test03() throws SolrServerException, IOException{
 		HttpSolrClient server = new HttpSolrClient(URL);
 		SolrQuery query = new SolrQuery();
-		query.setQuery("my_content:solr\nmy_title:solr");
+		String keyword = "php";
+		query.setQuery("my_content:"+keyword+"\nmy_title:"+keyword+"\nsign:"+keyword);
 		//query.setQuery("*:*");
 		//分页
-		query.setSort("create_time",SolrQuery.ORDER.desc);//定义分页依据
+		query.setSort("update_time",SolrQuery.ORDER.desc);//定义分页依据
 		query.setStart(0);
-		query.setRows(4);
+		query.setRows(10);
 		//设置高亮
 		query.setHighlight(true);
+		query.addHighlightField("my_content");
 		query.addHighlightField("my_title");
+		query.addHighlightField("sign");
 		query.setHighlightSimplePre("<font color='red'>");
 		query.setHighlightSimplePost("</font>");
 		//query.addFilterQuery("id:[1 TO 9]");
@@ -85,13 +91,14 @@ public class solrTest {
 		QueryResponse response = server.query(query);
 		server.commit();
 		
-		 //查询得到文档的集合  
-        SolrDocumentList solrDocumentList = response.getResults();  
-        System.out.println("通过文档集合获取查询的结果"); 
+		 //查询得到文档的集合
+		List<ArticleResult> artLists = response.getBeans(ArticleResult.class);
+        SolrDocumentList solrDocumentList = response.getResults();
+		System.out.println("通过文档集合获取查询的结果");
         System.out.println("查询结果的总数量：" + solrDocumentList.getNumFound());  
         //遍历列表  
         for (SolrDocument doc : solrDocumentList) {
-            System.out.println("id:"+doc.get("id")+"content:"+doc.get("my_content")+"title:"+doc.get("my_title")+"createTime:"+doc.get("create_time"));
+            System.out.println("id:"+doc.get("id")+"content:"+doc.get("my_content")+"title:"+doc.get("my_title")+"sign:"+doc.get("sign"));
         } 
 
         //
@@ -107,7 +114,40 @@ public class solrTest {
         }*/
 		
 	}
-	
+
+	public static <T> CommontData<T> serach(String keyword, Integer start, Integer pagesize, Class<T> tClass) throws SolrServerException, IOException{
+		CommontData<T> common = new CommontData<T>();
+		HttpSolrClient server = new HttpSolrClient("http://127.0.0.1:8080/solr/my");
+		SolrQuery query = new SolrQuery();
+		query.setQuery("my_content:"+keyword+"\nmy_title:"+keyword+"\nsign:"+keyword);
+		//query.setQuery("*:*");
+		//分页
+		query.setSort("update_time",SolrQuery.ORDER.desc);//定义分页依据
+		query.setStart(start);
+		query.setRows(pagesize);
+		//设置高亮
+		query.setHighlight(true);
+		query.addHighlightField("my_content");
+		query.addHighlightField("my_title");
+		query.addHighlightField("sign");
+		query.setHighlightSimplePre("<font color='red'>");
+		query.setHighlightSimplePost("</font>");
+
+		QueryResponse response = server.query(query);
+		server.commit();
+		List<T> artLists = response.getBeans(tClass);
+		Page page = new Page(start.longValue(),pagesize.longValue(),response.getResults().getNumFound());
+		common.setDataList(artLists);
+		common.setPage(page);
+		common.setHighlightings(response.getHighlighting());
+		return common;
+
+	}
+
+	public static void main(String[] args) throws IOException, SolrServerException {
+		CommontData<ArticleResult> common = solrTest.serach("php", 0, 10,ArticleResult.class);
+		System.out.println(common.getDataList());
+	}
 	
 }
 

@@ -3,15 +3,22 @@ package com.lzt.service.impl;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.lzt.Bo.PingCountBo;
+import com.lzt.Bo.ReadCountBo;
 import com.lzt.Bo.TimeCountBo;
 import com.lzt.Bo.typeCountBo;
+import com.lzt.dao.LunBoDao;
+import com.lzt.entity.LunBo;
 import com.lzt.entity.User;
 import com.lzt.exception.LztException;
+import com.lzt.util.Page;
+import com.lzt.vo.ArtVo;
 import com.lzt.vo.MessageVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.util.CollectionUtils;
@@ -35,6 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleDao articleDao;
 	@Resource
 	private SolrClient solrClient;
+	@Autowired
+	private LunBoDao lunBoDao;
 
 	@Override
 	public Article saveArt(Article art) throws LztException {
@@ -54,7 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 		//加入solr
 		ArticleField af = new ArticleField(article.getAid()
-				,article.getTitle(),article.getContentText(),String.valueOf(article.getCreateTime()));
+				,article.getTitle(),article.getContentText(),String.valueOf(article.getCreateTime()),String.valueOf(article.getUpdateTime()),article.getSign());
 		String result = (String) solrClient.addOrUpdateData(af);
 		return article;
 	}
@@ -77,6 +86,31 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
+	public Map<String,Object> getSerachArt(String keyword, Integer start, Integer pagesize) throws IOException, SolrServerException {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		CommontData<ArticleResult> common = solrClient.serach(keyword, start, pagesize,ArticleResult.class);
+		Map<String, Map<String, List<String>>> highlightings = common.getHighlightings();
+		List<ArticleResult> artlist = common.getDataList();
+		Page page = common.getPage();
+		for (ArticleResult articleResult : artlist) {
+			Map<String, List<String>> highlighting = highlightings.get(articleResult.getId());
+			if(!CollectionUtils.isEmpty(highlighting.get("my_content"))){
+				articleResult.setMy_content(highlighting.get("my_content").get(0));
+			}
+			if(!CollectionUtils.isEmpty(highlighting.get("my_title"))){
+				articleResult.setMy_title(highlighting.get("my_title").get(0));
+			}
+			if(!CollectionUtils.isEmpty(highlighting.get("sign"))){
+				articleResult.setSign(highlighting.get("sign").get(0));
+			}
+		}
+		resultMap.put("page",page);
+		resultMap.put("artList",artlist);
+		return resultMap;
+	}
+
+
+	@Override
 	public Map<String,Object> getPageArticle(Integer start, Integer pagesize) {
 		return articleDao.getPageArticle(start, pagesize);
 	}
@@ -92,8 +126,23 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public Map<String, Object> getPageArticleList1(Integer start, Integer pagesize) {
-		Map<String,Object> resultMap = articleDao.getPageArticleList(start, pagesize,null,null);
+	public Map<String, Object> getPageArticleList1(Integer start, Integer pagesize,String key) throws IOException, SolrServerException {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		if(key !=null && !key.equals("") && key!=""){
+			Map<String,Object> articleMap = new HashMap<String,Object>();
+			articleMap = getSerachArt(key,(start-1)*10,10);
+			Page page1 = (Page) articleMap.get("page");
+			List<ArticleResult> serachlist = (List<ArticleResult>)articleMap.get("artList");
+			List<Integer> ids = new ArrayList<Integer>();
+			for (ArticleResult a:serachlist) {
+				ids.add(Integer.parseInt(a.getId()));
+			}
+			List<ArtVo> artVoList = articleDao.getArtVoList(ids);
+			resultMap.put("artList",artVoList);
+			resultMap.put("page",page1);
+		}else{
+			resultMap = articleDao.getPageArticleList(start, pagesize,null,null);
+		}
 		return resultMap;
 	}
 
@@ -104,7 +153,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public void deleteById(String ids) throws LztException {
+	public void deleteById(String ids) throws LztException, IOException, SolrServerException {
 		List<Integer> integerList = new ArrayList<Integer>();
 		String[] idss = ids.split(",");
 		for(String str:idss){
@@ -114,6 +163,17 @@ public class ArticleServiceImpl implements ArticleService {
 		if(i != null && i<1){
 			throw new LztException(MessageVo.ERROR,"更新失败");
 		}
+		//solr删除
+		solrClient.deldata(null,ids);
+		//轮播图删除
+		for(Integer aid:integerList){
+			LunBo lunBo = lunBoDao.getLunBoByAid(aid);
+			if(lunBo!=null){
+				lunBoDao.updateLbStatus(lunBo.getId(),"2");
+			}
+		}
+
+
 	}
 
 	@Override
@@ -144,6 +204,29 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<TimeCountBo> getTimeCount() {
 		return articleDao.getTimeCount();
+	}
+
+	@Override
+	public List<ReadCountBo> getReadCount() throws LztException {
+		List<ReadCountBo> readCountBoList = articleDao.getReadCount();
+		if(readCountBoList==null){
+			throw new LztException(MessageVo.PASSWORD_ERROR,"未有数据!");
+		}
+		return readCountBoList;
+	}
+
+	@Override
+	public List<PingCountBo> getPingCount() throws LztException {
+		List<PingCountBo> readCountBoList = articleDao.getpingCount();
+		if(readCountBoList==null){
+			throw new LztException(MessageVo.PASSWORD_ERROR,"未有数据!");
+		}
+		return readCountBoList;
+	}
+
+	@Override
+	public List<ArtVo> getArtVoList(List<Integer> ids) {
+		return articleDao.getArtVoList(ids);
 	}
 }
 

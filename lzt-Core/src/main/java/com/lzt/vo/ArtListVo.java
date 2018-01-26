@@ -19,6 +19,8 @@ public class ArtListVo {
     private Timestamp createTime;
     private String imgUrl;
     private Integer readCount;
+    private Integer pingCount;
+    private String nickName;
 
     public Integer getId() {
         return id;
@@ -74,5 +76,21 @@ public class ArtListVo {
 
     public void setReadCount(Integer readCount) {
         this.readCount = readCount;
+    }
+
+    public Integer getPingCount() {
+        return pingCount;
+    }
+
+    public void setPingCount(Integer pingCount) {
+        this.pingCount = pingCount;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

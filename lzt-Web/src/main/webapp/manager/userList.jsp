@@ -14,6 +14,15 @@
     <link rel="stylesheet" href="${ctx}/static/bootStrap/css/bootstrap.min.css">
     <script src="${ctx}/static/bootStrap/js/bootstrap.min.js"></script>
     <script>
+        $(document).ready(function(){
+            $('#dgUser').datagrid({
+                onLoadSuccess: function (data) {
+                    $("a[name='stopLogin']").linkbutton({text: '禁止登陆', plain: true, iconCls: 'icon_stopLogin'});
+                    $("a[name='startLogin']").linkbutton({text: '开启登陆', plain: true, iconCls: 'icon_startLogin'});
+                }
+            });
+        });
+
         function reloadUser(){
             $("#dgUser").datagrid("reload");
         }
@@ -92,17 +101,17 @@
             }
         }
 
-        function caozuo(value,row){
-            var id = value;
+        function caozuoUser(value,row){
+            var id = row.id;
             var status = row.status;
             var button;
             if(id==1){
                 return "超级管理员";
             }
             if(status == 1){
-                button = "<a style='cursor:pointer;text-decoration: none' href='javascript:void(0);' class='easyui-linkbutton' onclick='stopLogin("+id+")'>禁止登陆</a>";
+                button = "<a href='javascript:void(0);' name='stopLogin' class='easyui-linkbutton' onclick='stopLogin("+id+")'>禁止登陆</a>";
             }else{
-                button = "<a style='cursor:pointer;text-decoration: none' href='javascript:void(0);' class='easyui-linkbutton' onclick='startLogin("+id+")'>开启登陆</a>";
+                button = "<a href='javascript:void(0);' name='startLogin' class='easyui-linkbutton' onclick='startLogin("+id+")'>开启登陆</a>";
             }
             return button;
         }
@@ -167,22 +176,21 @@
         <thead>
         <tr>
             <th data-options="field:'ck',checkbox:true"></th>
+            <th data-options="field:'id'" width="5" align="center" halign="center" >管理员编号</th>
             <th data-options="field:'headImg'" width="15" align="center" halign="center" formatter="headImg">头像</th>
             <th data-options="field:'username'" width="10" align="center" halign="center" >用户名</th>
             <th data-options="field:'nickname'" width="10" align="center" halign="center">用户昵称</th>
             <th data-options="field:'description'" width="40" align="center" halign="center">个人说明</th>
             <th data-options="field:'createTime'" width="15" align="center" halign="center">创建时间</th>
             <th data-options="field:'updateTime'" width="15" align="center" halign="center">更新时间</th>
-            <th data-options="field:'id'" width="10" align="center" halign="center" formatter="caozuo">操作</th>
+            <th data-options="field:'cz'" width="10" align="center" halign="center" formatter="caozuoUser">操作</th>
         </tr>
         </thead>
     </table>
     <div id="tb">
-        <shiro:hasRole name="superManager">
             <a href="javascript:void(0);" onclick="addUser()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"></a>
             <a href="javascript:void(0);" onclick="deleteUser()" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"></a>
       <%--      <a href="javascript:void(0);" onclick="updateUser()" class="easyui-linkbutton" data-options="iconCls:'icon-update',plain:true"></a>--%>
-        </shiro:hasRole>
     </div>
     <div id="win">
         <div class="form-group">

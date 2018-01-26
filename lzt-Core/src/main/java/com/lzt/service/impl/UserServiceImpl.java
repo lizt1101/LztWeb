@@ -116,6 +116,11 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(Integer id){
 		uDao.remove(id);
 	}
+
+	@Override
+	public User getuser(Integer id) {
+		return uDao.get(id);
+	}
 }
 
 

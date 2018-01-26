@@ -5,16 +5,20 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="${ctx}/lztlogo1.ico" type="image/x-icon" />
     <script src="${ctx}/static/bootStrap/js/jquery.min.js" type="text/javascript"></script>
     <script src="${ctx}/static/bootStrap/js/jquery.cookie.js" type="text/javascript"></script>
     <script>window.jQuery || document.write('<script src="${ctx}/static/bootStrap/js/jquery.min.js"><\/script>')</script>
     <script type="text/javascript" src="${ctx}/static/bootStrap/js/jquery.flexslider-min.js"></script>
     <script src="${ctx}/static/bootStrap/js/bootstrap.min.js"></script>
     <script src="${ctx}/js/base64.js"></script>
+    <script src="${ctx}/static/alertKuang/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="${ctx}/static/bootStrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${ctx}/static/bootStrap/css/Index.css">
     <link rel="stylesheet" href="${ctx}/static/bootStrap/css/search-form.css">
     <link rel="stylesheet" type="text/css" href="${ctx}/static/bootStrap/css/zzsc.css">
+    <link rel="stylesheet" type="text/css" href="${ctx}/static/alertKuang/css/xcConfirm.css"/>
+
     <title></title>
     <style>
         a,img{border:0;}
@@ -31,20 +35,6 @@
         .flex-direction-nav li a{display:block;width:50px;height:50px;overflow:hidden;cursor:pointer;position:absolute;}
         .flex-direction-nav li a.flex-prev{left:40px;background:url(Index/images/prev.png) center center no-repeat;}
         .flex-direction-nav li a.flex-next{right:40px;background:url(Index/images/next.png) center center no-repeat;}
-       .head-li{
-            display:inline;
-        }
-        .head-li li{
-            display: block;
-            float: right;
-            margin-right: 30px;
-            margin-top: 30px;
-        }
-        .head-li li a{
-            text-decoration: none;
-            font-size: 18px;
-            color: white;
-        }
         #serachBt{
             cursor: pointer;
         }
@@ -65,10 +55,10 @@
             background-color:#90d7ec;
         }
         /*弹幕开始*/
-        .dm{width:100%;height:800px;position:absolute;top:520px;left:0;display:none}
+        .dm{width:100%;height:600px;position:absolute;top:520px;left:0;display:none}
         .dm .d_screen
         .d_del{width:38px;height:38px;background:#600;display:block;text-align:center;line-height:38px;
-            text-decoration:none;font-size:20px;color:#fff;border-radius:19px;border:1px solid #fff;position:absolute;top:10px;right:20px;z-index:3;display:none;}
+            text-decoration:none;font-size:20px;color:#fff;border-radius:19px;border:1px solid #fff;position:absolute;top:10px;right:20px;z-index:3;}
         .dm .d_screen .d_del:hover{background:#f00;}
         .dm .d_screen .d_mask{width:100%;height:100%;background:#000;position:absolute;top:0;left:0;opacity:0.5;
             filter:alpha(opacity=50) z-index:1;}
@@ -85,25 +75,19 @@
         .send .s_con .s_sub{width:100px;height:36px;background:#65c33d;border:0;outline:none;font-size:14px;color:#fff;font-family:"微软雅黑";cursor:pointer;border-radius:0 4px 4px 0;border:1px solid #5bba32;}
         .send .s_con .s_sub:hover{background:#3eaf0e;}
         /*弹幕结束*/
+
     </style>
     <script>
         $(document).ready(function(){
             var int = self.setInterval("serachK()",5000);
-            var bj = $.cookie('bj');
-            if(bj==null){
-                var li = $("#ul li:eq("+1+")");
-                li.attr("style","border:3px solid #ccc");
-                $("body").attr("background","${ctx}/static/bootStrap/MyImage/bj/bj2.jpg");
-            }else{
-                var li = $("#ul li:eq("+(bj-1)+")");
-                li.attr("style","border:3px solid #ccc");
-                $("body").attr("background","${ctx}/static/bootStrap/MyImage/bj/bj"+bj+".jpg");
-            }
             $('.flexslider').flexslider({
                 directionNav: true,
                 pauseOnAction: false,
                 slideshowSpeed: 3000
             });
+
+            var mywidth = window.screen.width;
+            $("#mycanvas").attr("width",mywidth);
 
         })
 
@@ -115,7 +99,7 @@
                 $(".head-li li a").attr("style","color:#fff");
                 $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title.png")
             }else if(t>470){
-                $("#Myhead").attr("style","background-color:rgba(255,255,255,0.8);");
+                $("#Myhead").attr("style","background-color:rgba(255,255,255,0.6);");
                 $(".head-li li a").attr("style","color:#000");
                 $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title1.png")
             }else{          //恢复正常
@@ -125,43 +109,89 @@
             }
         }
         function dianji(){
+            $(".head_div2").slideToggle("slow");
             if($("#san img").attr("src")=="${ctx}/static/bootStrap/MyImage/daosan.png"){
                 $("#san img").attr("src","${ctx}/static/bootStrap/MyImage/san.png");
             }else{
                 $("#san img").attr("src","${ctx}/static/bootStrap/MyImage/daosan.png");
+                var mywidth = window.screen.width;
+                var canvas = document.getElementById('mycanvas');
+                var ctx = canvas.getContext('2d');
+                ctx.font = "18px serif";
+                ctx.textBaseline = "ideographic";
+                ctx.clearRect(0,0,mywidth,500);
+                $.post("${ctx}/LeaveMessage/getLiuyanShowList.do",{"start":"0","pageSize":"30"},
+                    function (result) {
+                        for(x in result.list){
+                            var color = getColor();
+                            ctx.fillStyle = color;
+                            drawText(ctx,result.list[x].message,Math.random()*mywidth,Math.random()*500,Math.random()*150+50);
+                        }
+                    },"json");
             }
-            $(".head_div2").slideToggle("slow");
-            init_screen();
-            $(".dm").toggle(1000);
 
         }
-        function publish(){
-            var text=$("#s_txt").val();
-            var div="<div>"+text+"</div>";
-            $(".d_show").append(div);
-            init_screen();
+
+        function drawText(ctx,t,x,y,w){
+
+            var chr = t.split("");
+            var temp = "";
+            var row = [];
+
+            for(var a = 0; a < chr.length; a++){
+                if( ctx.measureText(temp).width < w ){
+                    ;
+                }
+                else{
+                    row.push(temp);
+                    temp = "";
+                }
+                temp += chr[a];
+            }
+
+            row.push(temp);
+
+            for(var b = 0; b < row.length; b++){
+                ctx.fillText(row[b],x,y+(b+1)*20);
+            }
         }
-        function init_screen(){
-            var _top=0;
-            $(".d_show").find("div").show().each(function(){
-                var _left=$(window).width()-$(this).width();
-                var _height=$(window).height();
 
-                _top=_top+76;
-                if(_top>=_height-100){
-                    _top=0;
+
+        function liuyan1(){
+            var liuyan = $("#s_txt").val();
+            var liuyancode = $("#y_code").val();
+            if(liuyancode.trim()==''){
+                var txt=  "请输入验证码！！！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
+                $(".imgcode").attr("src","${ctx}/Login/getLiuYanCode.do?x="+Math.random());
+                return false;
+            }
+            if(liuyan.trim()==''){
+                var txt=  "请输入留言！！！";
+                window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.warning);
+                return false;
+            }
+            var mywidth = window.screen.width;
+            var canvas = document.getElementById('mycanvas');
+            var color = getColor();
+            var ctx = canvas.getContext('2d');
+            ctx.font = "20px serif";
+            ctx.textBaseline = "ideographic";
+            ctx.fillStyle = color;
+            drawText(ctx,liuyan,Math.random()*mywidth,Math.random()*500,500);
+            $.post("${ctx}/LeaveMessage/liuyan.do",{"message":liuyan,"kIP":"172.31.61.19","code":liuyancode},function(result){
+                if(result.code=="000000"){
+                    var txt=  "留言成功！！！";
+                    window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.success);
+                    $("#s_txt").val("");
+                    $("#y_code").val("");
+                    $(".imgcode").attr("src","${ctx}/Login/getLiuYanCode.do?x="+Math.random());
+                }else{
+                    window.wxc.xcConfirm(result.message, window.wxc.xcConfirm.typeEnum.error);
+                    $("#y_code").val("");
+                    $(".imgcode").attr("src","${ctx}/Login/getLiuYanCode.do?x="+Math.random());
                 }
-
-                $(this).css({left:_left,top:_top,color:getReandomColor()});
-                var time=10000;
-                if($(this).index()%2==0){
-                    time=15000;
-                }
-                $(this).animate({left:"-"+_left+"px"},time,function(){
-
-
-                });
-            });
+            },"json");
         }
 
         //随机获取颜色值
@@ -182,7 +212,7 @@
         function xz(a){
             var allLi = $("#ul li");
             allLi.attr("style","");
-            var li = $("#ul li:eq("+(a-1)+")");
+            var li = $(".bj"+a);
             li.attr("style","border:3px solid #ccc");
             createcookie(a);
 
@@ -196,6 +226,7 @@
             var color = getColor();
             $("#serachInput").attr("style","border:1px solid "+color+";box-shadow: 0px 0px 15px "+color);
             $("#serachBt").attr("style","background-color:"+color);
+            $(".liuyan").attr("style","box-shadow: 0px 0px 35px "+color+";background-color:"+color);
         }
 
         function getColor(){
@@ -207,6 +238,13 @@
             }
             return color;
         }
+
+        function liuyan(){
+            $("#showliu").attr("style","width: 100%;height: 100%;margin: 0 auto;");
+            $("#liuyan").attr("style","display:none;");
+            $("#liuyan1").attr("style","text-decoration: none;font-size: 24px;color:#fff");
+        }
+
     </script>
     <script>
         function getTypeList(){
@@ -223,7 +261,7 @@
                             var b = new Base64();
                             var str = b.encode("lzt"+result.data.typeList[x].id);
                             var str1 = b.encode("lzt"+result.data.typeList[x].typeName);
-                            optionHtml += "<li><a href=${ctx}/toIndex.do?type="+str+"&typeName="+str1+">"+result.data.typeList[x].typeName+"&nbsp&nbsp("+result.data.typeList[x].count+")</a></li>"
+                            optionHtml += "<li>&nbsp;&nbsp;&nbsp;&nbsp;<a href=${ctx}/toIndex.do?type="+str+"&typeName="+str1+">"+result.data.typeList[x].typeName+"&nbsp&nbsp("+result.data.typeList[x].count+")</a></li>"
                         }
                         ul.append(optionHtml);
                     },'json');
@@ -243,15 +281,96 @@
                         {
                             var b = new Base64();
                             var str = b.encode("lzt"+result.data.timeList[x].time);
-                            optionHtml += "<li><a href=${ctx}/toIndex.do?time="+str+">"+result.data.timeList[x].time+"&nbsp&nbsp("+result.data.timeList[x].count+")</a></li>"
+                            optionHtml += "<li>&nbsp;&nbsp;&nbsp;&nbsp;<a href=${ctx}/toIndex.do?time="+str+">"+result.data.timeList[x].time+"&nbsp&nbsp("+result.data.timeList[x].count+")</a></li>"
                         }
                         ul.append(optionHtml);
                     },'json');
             }
         }
+
+        function aboutWeb(){
+            var web = $("#web");
+            var webHead = $("#webHead");
+            var webContentHtml = '';
+            if(web.text()!=''){
+                return false;
+            }
+            $.post("${ctx}/aboutWeb.do",function(result){
+                web.text(result.data.content);
+                webContentHtml += "<img class='am-circle' style='width: 100%;height: 100%' alt='头像' src='http://172.31.61.19:9091/lztWeb/"+result.data.headImg+"'/>";
+                webHead.append(webContentHtml);
+            },'json');
+        }
+
+        function readCount(){
+            var ul = $("#readLi");
+            var lis = $("#readLi li");
+            if(lis.length>0){
+                return false;
+            }else{
+                $.post("${ctx}/read.do",function(result){
+                    var optionHtml='';
+                    for (x in result.data)
+                    {
+                        optionHtml += "<li><img style='width:25px;height:20px' src='${ctx}/static/image/"+(parseInt(x)+1)+".png'>&nbsp;<a target='view_window' href=${ctx}/article/getArtDetails/"+result.data[x].id+".do>"+result.data[x].title+"&nbsp&nbsp("+result.data[x].look+")</a></li>"
+                    }
+                    ul.append(optionHtml);
+                },'json');
+            }
+        }
+
+        function pingCount(){
+            var ul = $("#pingLi");
+            var lis = $("#pingLi li");
+            if(lis.length>0){
+                return false;
+            }else{
+                $.post("${ctx}/ping.do",function(result){
+                    var optionHtml='';
+                    for (x in result.data)
+                    {
+                        optionHtml += "<li><img style='width:25px;height:20px' src='${ctx}/static/image/"+(parseInt(x)+1)+".png'>&nbsp;<a target='view_window' href=${ctx}/article/getArtDetails/"+result.data[x].id+".do>"+result.data[x].title+"&nbsp&nbsp("+result.data[x].ping+")</a></li>"
+                    }
+                    ul.append(optionHtml);
+                },'json');
+            }
+        }
+
+        function serachArt(){
+            var key = $("#key").val();
+
+        }
+        function serachKey(){
+            var searchkey = $("#mykey").val();
+            if(searchkey.trim()==''){
+                return false;
+            }
+            return true;
+        }
+
+        function Myurl(){
+            var ul = $("#urlLi");
+            var lis = $("#urlLi li");
+            if(lis.length>0){
+                return false;
+            }else{
+                $.post("${ctx}/getUrl.do",function(result){
+                    if(result.code=="000000"){
+                        var optionHtml='';
+                        for (x in result.data)
+                        {
+                            optionHtml += "<li>&nbsp;&nbsp;&nbsp;&nbsp;<a target='view_window' href="+result.data[x].url+">"+result.data[x].urlName+"</a></li>"
+                        }
+                        ul.append(optionHtml);
+                    }else{
+                        ul.append("<li>"+result.message+"</li>");
+                    }
+                },'json');
+            }
+        }
     </script>
 </head>
-<body background="${ctx}/static/bootStrap/MyImage/bj/bj15.jpg">
+<body>
 <!--背景动画start-->
 <script src="${ctx}/static/bootStrap/js/canvas-nest.min.js"></script>
 <!--背景动画end-->
@@ -274,30 +393,46 @@
   </div>--%>
   <jsp:include page="/common/head.jsp"></jsp:include>
   <div id="lunbo">
+      <form action="toIndex.do"  method="get" onsubmit="return serachKey()">
         <div style="width: 40%;height: 90px; top: 100px; left: 30%;position: absolute; z-index: 3;">
-            <div id="serachInput" boder="1px solid rgba(255,255,255,0.6)">
-                <div style="width: 80%;height: 100%;float: left;">
-                    <div style="width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)">
-                        <img src="${ctx}/static/bootStrap/MyImage/sousuo.png" style="width: 100%;height: 100%">
-                    </div>
-                    <div style="width: 88%;height: 100%;float: left">
-                        <input type="text" class="form-control" placeholder="请输入关键字" style="height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px">
-                    </div>
+                <div id="serachInput" boder="1px solid rgba(255,255,255,0.6)">
+                        <div style="width: 80%;height: 100%;float: left;">
+                            <div style="width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)">
+                                <img src="${ctx}/static/bootStrap/MyImage/sousuo.png" style="width: 100%;height: 100%">
+                            </div>
+                            <div style="width: 88%;height: 100%;float: left">
+                                <input type="text" id="mykey"  value="${param.key}" class="form-control" placeholder="请输入关键字" name="key" style="color:#fff;height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px">
+                            </div>
+                        </div>
+                        <div id="serachBt">
+                            <span style="color: #fff;font-size: 22px;"><button type="submit" style="width: 100%;height: 100%;border: 0;background-color: rgba(255,255,255,0)">搜&nbsp&nbsp索</button></span>
+                        </div>
                 </div>
-                <div id="serachBt">
-                    <span style="color: #fff;font-size: 22px;">搜&nbsp&nbsp索</span>
-                </div>
-            </div>
         </div>
+      </form>
         <div class="jq22-container">
             <div class="flexslider">
                 <ul class="slides">
-                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img1.png) 50% 0 no-repeat;"></li>
+                    <c:forEach var="lb" items="${LbList}">
+                        <%--<a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'></a>--%>
+                            <li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/${lb.lbTu}) 50% 0 no-repeat;">
+                                <c:if test="${lb.lbType==1}">
+                                    <a target='view_window' href='${lb.lbUrl}'>
+                                        <div style="width: 100%;height: 100%;"></div>
+                                    </a>
+                                </c:if>
+                                <c:if test="${lb.lbType==0}">
+                                    <a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'>
+                                        <div style="width: 100%;height: 100%;"></div>
+                                    </a>
+                                </c:if>
+                            </li>
+                    </c:forEach>
+                    <%--<li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/lzt1516588666552.png) 50% 0 no-repeat;"></li>
                     <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img2.png) 50% 0 no-repeat;"></li>
                     <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img3.png) 50% 0 no-repeat;"></li>
                     <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img4.png) 50% 0 no-repeat;"></li>
-                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img5.png) 50% 0 no-repeat;"></li>
-
+                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img5.png) 50% 0 no-repeat;"></li>--%>
                 </ul>
             </div>
         </div>
@@ -308,32 +443,34 @@
         <img src="${ctx}/static/bootStrap/MyImage/san.png" onclick="dianji()" style="width: 100px;height: 50px;cursor:pointer">
     </div>
     <div class="head_div2">
-        <div class="dm">
-            <!--d_screen start-->
-            <div class="d_screen">
-                <div class="d_mask"></div>
-                <div class="d_show">
-                    <div>1</div>
-                    <div>2</div>
-                    <div>3</div>
-                    <div>4</div>
-                    <div>5</div>
-                </div>
-            </div>
-            <!--end d_screen-->
+        <div style="width: 100%;height: 600px;position: absolute;">
+            <div style="width: 30%;height: 50%;margin: 0 auto;background:url('${ctx}/static/bootStrap/MyImage/liuyanban.png') 0 50% no-repeat;background-size: 100%">
 
-            <!--send start-->
-            <div class="send">
-                <div style="width: 50%;height:100%;margin:0 auto">
-                    <div style="width: 80%;height:100%;float: left">
-                        <input type="text" id="s_txt" class="form-control" placeholder="请输入留言。。。" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
-                    </div>
-                    <div style="width: 20%;height:100%;background-color: rgba(255,255,255,0.1);float: right;">
-                        <button type="button" class="btn btn-primary btn-lg btn-block" style="height: 100%" onclick="publish()">发表留言</button>
+            </div>
+            <div style="width: 100%;height: 60px;margin-top: 230px">
+                <div style="width: 90%;height: 100%;float: left;" >
+                    <div style="width: 100%;height: 100%;margin: 0 auto;display: none;" id="showliu">
+                        <div style="width: 75%;height:100%;float: left;">
+                            <input type="text" id="s_txt"  maxlength="30" class="form-control" placeholder="请输入留言(最多输入30个字符)" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
+                        </div>
+                        <div style="width: 10%;height: 100%;float: left;">
+                            <img style="width: 100%;height: 100%" src="${ctx}/Login/getLiuYanCode.do" onclick="this.setAttribute('src','${ctx}/Login/getLiuYanCode.do?x='+Math.random());"
+                                 alt="验证码" title="点击更换" class="imgcode"/>
+                        </div>
+                        <div style="width: 15%;height: 100%;float: left;">
+                            <input id="y_code" type="text" maxlength="4" class="form-control" placeholder="请输入验证码。。。" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
+                        </div>
                     </div>
                 </div>
+                <div class="liuyan">
+                    <a onclick="liuyan()" style="text-decoration: none;font-size: 18px;color: #fff;" id="liuyan" href="javascript:void(0);">留&nbsp言&nbsp&nbsp(点我呀!!!)</a>
+                    <a onclick="liuyan1()" style="text-decoration: none;font-size: 24px;display: none" id="liuyan1" href="javascript:void(0);">留&nbsp&nbsp言</a>
+                </div>
             </div>
-            <!--end send-->
+        </div>
+        <div style="width: 100%;height: 550px;position: absolute">
+            <canvas id="mycanvas" height="550">
+            </canvas>
         </div>
     </div>
     <div style="text-align: center" id="san">
@@ -346,19 +483,26 @@
                     <marquee direction=left behavior=scroll
                              scrollamount=10 scrolldelay=10 align=top bgcolor=#ffffff
                              hspace=20 vspace=10 onmouseover=this.stop() onmouseout=this.start()>
-                        <span style="color: #000;font-size: 20px">此处输入滚动内容</span>
+                        <span style="color: #000;font-size: 20px">${gunText}</span>
                     </marquee>
                 </div>
                 ${tishi}
                 <hr style="height:1px;border:none;border-top:1px solid #ccc;" />
-                <div id="content">
+                <div class="content" id="content">
                     <jsp:include page="${content}"></jsp:include>
                 </div>
             </div>
             <div class="col-md-3 col-xs-3" id="body_ce">
                 <div class="row">
                     <!--background: url('timebj.jpg');border: 1px solid red;background-size: 100% 100%;-->
-                    <div class="col-md-12 col-xs-12" style="height:300px;background: url('${ctx}/static/bootStrap/MyImage/time.png');background-size: 100% 100%;">
+                    <div class="col-md-12 col-xs-12" style="height:280px;
+                    <c:set var="l" value="false" />
+                    <c:forEach var="tu" items="${tuList}">
+                        <c:if test="${tu.tuType=='4'}">background: url('http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}');background-size: 100% 100%;
+                        <c:set var="l" value="true" />
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${l==false}">background: url('${ctx}/static/bootStrap/MyImage/time.png');background-size: 100% 100%;</c:if>">
                         <div class="zzsc-content">
                             <canvas id="clock7_" width="250px" height="250px">
                             </canvas>
@@ -379,17 +523,17 @@
                             };
                             var c = document.getElementById('clock7_');
                             cns7_ = c.getContext('2d');
-                            clock_dots(250,cns7_,clockd7_);
+                            clock_dots(235,cns7_,clockd7_);
                         </script>
                     </div>
-                    <div class="col-md-12 col-xs-12" style="height: 450px;margin-top: 30px;padding: 0">
+                    <div class="col-md-12 col-xs-12" style="margin-top: 30px;padding: 0">
                         <div id="ph"></div>
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default" style="background-color:rgba(255,255,255,0.7);">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="a_ce" data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapseZero" style="text-decoration: none">
+                                           href="#collapseZero" style="text-decoration: none" onclick="aboutWeb()">
                                             <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_gold_1.png">
                                             <span><strong>&nbsp&nbsp关&nbsp于&nbsp本&nbsp站</strong></span>
                                         </a>
@@ -397,6 +541,10 @@
                                 </div>
                                 <div id="collapseZero" class="panel-collapse collapse">
                                     <div class="panel-body">
+                                        <div style="width: 60%;height: 150px;margin: 20px auto" id="webHead">
+
+                                        </div>
+                                        <span id="web"></span>
                                     </div>
                                 </div>
                             </div>
@@ -438,7 +586,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="a_ce" data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapseTwo" style="text-decoration: none">
+                                           href="#collapseTwo" style="text-decoration: none" onclick="readCount()">
                                             <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_silver_2.png">
                                             <span><strong>&nbsp&nbsp阅&nbsp读&nbsp排&nbsp行</strong></span>
                                         </a>
@@ -446,12 +594,8 @@
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <ul class="Li">
-                                            <li>标题标题标题 &nbsp&nbsp(17)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(16)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(14)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(12)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(11)</li>
+                                        <ul class="Li" id="readLi">
+
                                         </ul>
                                     </div>
                                 </div>
@@ -460,7 +604,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="a_ce" data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapseThree" style="text-decoration: none">
+                                           href="#collapseThree" style="text-decoration: none" onclick="pingCount()">
                                             <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_silver_3.png">
                                             <span><strong>&nbsp&nbsp评&nbsp论&nbsp排&nbsp行</strong></span>
                                         </a>
@@ -468,12 +612,7 @@
                                 </div>
                                 <div id="collapseThree" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <ul class="Li">
-                                            <li>标题标题标题 &nbsp&nbsp(17)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(16)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(14)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(12)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(11)</li>
+                                        <ul class="Li" id="pingLi">
                                         </ul>
                                     </div>
                                 </div>
@@ -482,25 +621,28 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="a_ce" data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapsefour" style="text-decoration: none">
+                                           href="#collapsefour" style="text-decoration: none" onclick="Myurl()">
                                             <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_gold_2.png">
-                                            <span><strong>&nbsp&nbsp推&nbsp荐&nbsp文&nbsp章</strong></span>
+                                            <span><strong>&nbsp&nbsp推&nbsp荐&nbsp链&nbsp接</strong></span>
                                         </a>
                                     </h4>
                                 </div>
                                 <div id="collapsefour" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <ul class="Li">
-                                            <li>标题标题标题 &nbsp&nbsp(17)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(16)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(14)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(12)</li>
-                                            <li>标题标题标题 &nbsp&nbsp(11)</li>
+                                       <ul class="Li" id="urlLi">
+
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12" style="height: 300px;margin-top: 30px;padding: 0;">
+                        <c:forEach var="tu" items="${tuList}">
+                            <c:if test="${tu.tuType=='3'}">
+                                <img src="http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}" style="width: 100%;height: 100%">
+                            </c:if>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

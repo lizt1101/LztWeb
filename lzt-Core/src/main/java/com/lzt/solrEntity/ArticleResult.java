@@ -11,6 +11,11 @@ public class ArticleResult {
 	private String my_content;     
 	@Field
 	private String create_time;
+	@Field
+	private String update_time;
+	@Field
+	private String sign;
+
 	public String getId() {
 		return id;
 	}
@@ -35,9 +40,20 @@ public class ArticleResult {
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
 	}
-	
-	
-	
-	
 
+	public String getUpdate_time() {
+		return update_time;
+	}
+
+	public void setUpdate_time(String update_time) {
+		this.update_time = update_time;
+	}
+
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
 }

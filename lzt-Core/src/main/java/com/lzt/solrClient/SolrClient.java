@@ -10,6 +10,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.apache.solr.common.SolrDocumentList;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -39,16 +40,17 @@ public class SolrClient {
 		CommontData<T> common = new CommontData<T>();
 		HttpSolrClient server = new HttpSolrClient(URL);
 		SolrQuery query = new SolrQuery();
-		query.setQuery("my_content:"+keyword+"\nmy_title:"+keyword);
+		query.setQuery("my_content:"+keyword+"\nmy_title:"+keyword+"\nsign:"+keyword);
 		//query.setQuery("*:*");
 		//分页
-		query.setSort("create_time",SolrQuery.ORDER.desc);//定义分页依据
-		query.setStart(start);
+		query.setSort("update_time",SolrQuery.ORDER.desc);//定义分页依据
+		query.setStart((start-1)*10);
 		query.setRows(pagesize);
 		//设置高亮
 		query.setHighlight(true);
 		query.addHighlightField("my_content");
 		query.addHighlightField("my_title");
+		query.addHighlightField("sign");
 		query.setHighlightSimplePre("<font color='red'>");
 		query.setHighlightSimplePost("</font>");
 		

@@ -15,6 +15,7 @@ import com.lzt.service.ArtCountService;
 import com.lzt.service.TypeService;
 import com.lzt.system.RestServer;
 import com.lzt.util.JsonUtil;
+import com.lzt.vo.ArtDetailsVo;
 import com.lzt.vo.MessageVo;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
@@ -82,7 +83,6 @@ public class ArticleController {
 		log.info("获取前端页面详情,入参:"+artId);
 		Article article = articleService.getDetail(Integer.parseInt(artId));
 		Type type = typeService.getType(article.getTypeId());
-		req.setAttribute("typeName",type.getTypeName());
 		List<String> keylist = new ArrayList<String>();
 		if(article.getSign() != null){
 			String[] keys = article.getSign().split(",");
@@ -90,22 +90,31 @@ public class ArticleController {
 				keylist.add(s);
 			}
 		}
-		req.setAttribute("keys",keylist);
 		Article lastarticle = articleService.getLastDetail(Integer.parseInt(artId));
 		Article nextarticle = articleService.getNextDetail(Integer.parseInt(artId));
 		String pageBean = pageUitl.getLastAndNextPage(lastarticle,nextarticle,req.getContextPath());
 		req.setAttribute("pageBean",pageBean);
-		req.setAttribute("article",article);
 		//增加阅读次数
 		ArtCount artCount = new ArtCount();
 		artCount.setArtId(Integer.parseInt(artId));
 		artCount.setLook(1);
+		Integer reads = 0;
 		try {
-			Integer reads = artCountService.updateArtCount(artCount);
-			req.setAttribute("reads",reads);
+			reads = artCountService.updateArtCount(artCount);
 		} catch (LztException e) {
 			e.printStackTrace();   //跳转到错误页面
 		}
+		Integer pings = artCountService.getArtReadCount(Integer.parseInt(artId),2);
+		ArtDetailsVo artDetailsVo = new ArtDetailsVo();
+		artDetailsVo.setId(article.getAid());
+		artDetailsVo.setContent(article.getContent());
+		artDetailsVo.setKeys(keylist);
+		artDetailsVo.setReads(reads);
+		artDetailsVo.setCreateTime(article.getCreateTime());
+		artDetailsVo.setTypeName(type.getTypeName());
+		artDetailsVo.setTitle(article.getTitle());
+		artDetailsVo.setPings(pings);
+		req.setAttribute("article",artDetailsVo);
 		return "mainPage/artDetails";
 
 	}
@@ -125,7 +134,7 @@ public class ArticleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "success";
+		return "articleIndex";
 	}
 	
 	/**

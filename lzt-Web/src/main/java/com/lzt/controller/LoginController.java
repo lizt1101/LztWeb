@@ -44,6 +44,12 @@ public class LoginController {
 
 	}
 
+	/**
+	 * 登陆验证码
+	 * @param req
+	 * @param res
+	 * @throws IOException
+	 */
 	@RequestMapping(value={"/getCode.do"})
 	public void getImage(HttpServletRequest req,HttpServletResponse res) throws IOException {
 		//生成验证码及图片
@@ -61,6 +67,48 @@ public class LoginController {
 		ImageIO.write(img, "png", os);
 		os.close();
 	}
+
+	/**
+	 * 留言验证码
+	 * @param req
+	 * @param res
+	 * @return
+	 */
+	@RequestMapping(value={"/getLiuYanCode.do"})
+	public void getLiuYanCode(HttpServletRequest req,HttpServletResponse res) throws IOException {
+		//生成验证码及图片
+		Object[] objs = ImageUtil.createImage();
+		//验证码存入session
+		HttpSession session = req.getSession();
+		session.setAttribute("LiuyanImage", objs[0]);
+		//将图片输出给浏览器
+		res.setContentType("image/png");
+		//获取输出流,该流由服务器自动创建,
+		//它所输出的目标就是当前访问的浏览器.
+		OutputStream os = res.getOutputStream();
+		BufferedImage img =
+				(BufferedImage) objs[1];
+		ImageIO.write(img, "png", os);
+		os.close();
+	}
+
+	@RequestMapping(value = {"/getCommentCode.do"})
+	public void getCommentCode(HttpServletRequest req,HttpServletResponse res) throws IOException {
+		//生成验证码及图片
+		Object[] objs = ImageUtil.createImage();
+		//验证码存入session
+		HttpSession session = req.getSession();
+		session.setAttribute("CommentImage", objs[0]);
+		//将图片输出给浏览器
+		res.setContentType("image/png");
+		//获取输出流,该流由服务器自动创建,
+		//它所输出的目标就是当前访问的浏览器.
+		OutputStream os = res.getOutputStream();
+		BufferedImage img = (BufferedImage) objs[1];
+		ImageIO.write(img, "png", os);
+		os.close();
+	}
+
 
 	@RequestMapping(value={"/login.do"},method = RequestMethod.POST, produces = "application/json;charset=utf-8")
 	public String Login(HttpServletRequest req,HttpServletResponse res){

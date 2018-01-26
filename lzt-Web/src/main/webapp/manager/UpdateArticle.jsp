@@ -45,7 +45,7 @@
                return false;
            }
            $.post("${ctx}/article/saveArt.do",
-               {"Aid":$("#aid").val(),"title":$("#title").val(),"typeId":$("#type").val(),"content":UE.getEditor('editor').getContentTxt(),
+               {"Aid":$("#aid").val(),"title":$("#title").val(),"typeId":$("#type").val(),"content":UE.getEditor('editor').getContent(),
                "contentText":UE.getEditor('editor').getContentTxt(),"sign":$("#sign").val()},
                function(result){
                   if(result.code=='000000'){

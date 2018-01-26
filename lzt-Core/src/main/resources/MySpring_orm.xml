@@ -50,8 +50,7 @@
         <property name="maxUploadSize" value="20971520"></property>      
         <property name="defaultEncoding" value="utf-8"></property>     
     </bean>  
-	
-	
+
 	<import resource="MySpring_tx.xml"/>
 	<import resource="shiro.xml"/>
     

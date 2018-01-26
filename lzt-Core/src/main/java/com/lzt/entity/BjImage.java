@@ -19,9 +19,10 @@ public class BjImage {
     private String bjName;
     private String bjUrl;
     private Integer sort;
-    private Date creteDate;
+    private Date createDate;
     private Date updateDate;
     private String isDelete;
+    private String isPu;
 
     @Id
     @GeneratedValue
@@ -61,12 +62,12 @@ public class BjImage {
     }
 
     @Column(name="create_date")
-    public Date getCreteDate() {
-        return creteDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreteDate(Date creteDate) {
-        this.creteDate = creteDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     @Column(name="update_date")
@@ -85,5 +86,28 @@ public class BjImage {
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
+    }
+
+    @Column(name="is_pu")
+    public String getIsPu() {
+        return isPu;
+    }
+
+    public void setIsPu(String isPu) {
+        this.isPu = isPu;
+    }
+
+    @Override
+    public String toString() {
+        return "BjImage{" +
+                "id=" + id +
+                ", bjName='" + bjName + '\'' +
+                ", bjUrl='" + bjUrl + '\'' +
+                ", sort=" + sort +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
+                ", isDelete='" + isDelete + '\'' +
+                ", isPu='" + isPu + '\'' +
+                '}';
     }
 }

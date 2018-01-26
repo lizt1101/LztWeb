@@ -13,6 +13,13 @@ public class MessageVo {
     public static final String SUCCESS="000000";
     public static final String ERROR="000002";
     public static final String PASSWORD_ERROR="000003";
+    public static final String YCODE_ERROR="000004";
+    public static final String PING_ERROR="000005";
+    public static final String FTP_ERROR="000006";
+    public static final String IO_ERROR="000007";
+    public static final String SOLR_ERROR="000008";
+
+
 
     private String code = "000000";
     private Object data;

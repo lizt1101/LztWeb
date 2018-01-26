@@ -21,6 +21,7 @@ public class ArtVo {
     private Timestamp updateTime;
     private String updateBy;
     private String bContent;
+    private String nickName;
 
     public String getUpdateBy() {
         return updateBy;
@@ -92,5 +93,13 @@ public class ArtVo {
 
     public void setBcontent(String bContent) {
         this.bContent = bContent;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

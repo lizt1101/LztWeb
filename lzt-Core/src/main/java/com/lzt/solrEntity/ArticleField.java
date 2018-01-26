@@ -13,16 +13,23 @@ public class ArticleField {
 	private String content;
 	@Field("create_time")         
 	private String createTime;
+	@Field("update_time")
+	private String updateTime;
+	@Field("sign")
+	private String sign;
 	
 	public ArticleField() {
 	}
-	
-	public ArticleField(Integer id, String title, String content, String createTime) {
+
+
+	public ArticleField(Integer id, String title, String content, String createTime,String updateTime,String sign) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.sign = sign;
 	}
 	
 	public Integer getId() {
@@ -49,8 +56,11 @@ public class ArticleField {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	
-	
-	
+	public String getUpdateTime() {
+		return updateTime;
+	}
 
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 }

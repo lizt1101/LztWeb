@@ -98,7 +98,7 @@ public class Base64Util {
             }
             String headImageName = System.currentTimeMillis()+"lzt";
             //生成jpeg图片
-            String imgFilePath = "d://"+headImageName+".jpg";//新生成的图片
+            String imgFilePath = "/"+headImageName+".jpg";//新生成的图片
             OutputStream out = new FileOutputStream(imgFilePath);
             out.write(b);
             out.flush();

@@ -15,11 +15,14 @@
     <script src="${ctx}/static/bootStrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-      /*$(document).ready(function(){
-          alert("刷新")
-       $("#dg").datagrid("reload");
-       })
-*/
+     $(document).ready(function(){
+         $('#dg').datagrid({
+             onLoadSuccess: function (data) {
+                 $("a[name='artUpdate']").linkbutton({text: '编辑', plain: true, iconCls: 'icon_lzt_edit'});
+             }
+         });
+      })
+
       function shuaxin(){
           $("#dg").datagrid("reload");
       }
@@ -27,16 +30,19 @@
             window.parent.openTab(text,url,icon);
         }
         function subContent(value){
-            return value.substring(0,25)+"。。。。。。";
+            if(value.length>25){
+                return value.substring(0,25)+"。。。。。。";
+            }
+            return value;
         }
+
         function lookOrUpdate(value){
             var id = value;
-            var button = "<a style='cursor:pointer;text-decoration: none' href='javascript:void(0);' " +
-                "class='easyui-linkbutton' onclick='look("+id+")'>查看</a>&nbsp&nbsp&nbsp<a style='cursor:pointer;text-decoration: none' href='javascript:void(0);' " +
-                "class='easyui-linkbutton' onclick='update("+id+")'>编辑</a>"
+            var button = "<a onclick='update("+id+")' name='artUpdate' class='easyui-linkbutton' href='javascript:void(0);'></a>";
             return button;
         }
-        function look(id){
+
+      function look(id){
             alert(id);
             window.parent.openTab('查看文章'+id,'LookArticle.jsp?id='+id,'icon-modifyPassword');
         }
@@ -58,6 +64,7 @@
                 if (r){
                     $.post("${ctx}/manager/article/deleteArt.do",{"ids":ids},function(result){
                         if(result.code=="000000"){
+                            $.messager.alert("成功","删除成功!","Info");
                             $("#dg").datagrid("reload");
                         }else{
                             $.messager.alert("错误","删除失败","error");
@@ -69,6 +76,17 @@
         function reload(){
             $("#dg").datagrid("reload");
         }
+        function detailsBytitle(value,row){
+            return "<a target='view_window' href='${ctx}/article/getArtDetails/"+row.id+".do'>"+value+"</a>";
+        }
+        function serach(){
+            var key = $("#key").val().trim();
+            if(key != ""){
+                $("#dg").datagrid('load',{
+                    "key":key
+                })
+            }
+        }
     </script>
 </head>
 <body>
@@ -77,7 +95,7 @@
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
-        <th data-options="field:'title'" width="20" align="center" halign="center">标题</th>
+        <th data-options="field:'title'" width="20" align="center" halign="center" formatter="detailsBytitle">标题</th>
         <th data-options="field:'content'" width="50" align="center" halign="center" formatter="subContent">内容</th>
         <th data-options="field:'userName'" width="10" align="center" halign="center">作者</th>
         <th data-options="field:'createTime'" width="20" align="center" halign="center">发表时间</th>
@@ -89,8 +107,8 @@
     </thead>
 </table>
 <div id="tb">
-    <input class="form-control" id="title" type="text" name="title" style="width:200px;display: inline" placeholder="请输入关键字进行搜索"/>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true,size:'large'"></a><br>
+    <input class="form-control" id="key" type="text" name="key" style="width:200px;display: inline" placeholder="请输入关键字进行搜索"/>
+    <a href="javascript:serach();" class="easyui-linkbutton" data-options="iconCls:'icon-search'">搜索</a><br>
     <a href="javascript:void(0);" onclick="openTab1('发表文章','writeArticle.jsp','icon-writeblog')" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"></a>
     <a href="javascript:void(0);" onclick="remove()" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true"></a>
 </div>

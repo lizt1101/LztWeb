@@ -23,10 +23,10 @@ public class pageUitl {
 			if(pageNum==1){
 				pageSb.append("<li class='disabled'><a href=#>第一页</a></li>");
 			}else{	
-				pageSb.append("<li><a href="+url+"?Start=1&"+param+">第一页</a></li>");
+				pageSb.append("<li><a href="+url+"?Start=1&"+param+" style='color:#000'>第一页</a></li>");
 			}
 			if(pageNum > 1){
-				pageSb.append("<li><a href="+url+"?Start="+(pageNum-1)+"&"+param+">上一页</a></li>");
+				pageSb.append("<li><a href="+url+"?Start="+(pageNum-1)+"&"+param+" style='color:#000'>上一页</a></li>");
 			}else{
 				pageSb.append("<li class='disabled'><a href=#>上一页</a></li>");
 			}
@@ -37,18 +37,18 @@ public class pageUitl {
 				if(i==pageNum){
 					pageSb.append("<li class='active'><a href="+url+"?Start="+i+"&"+param+">"+i+"</a></li>");
 				}else{
-					pageSb.append("<li><a href="+url+"?Start="+i+"&"+param+">"+i+"</a></li>");
+					pageSb.append("<li><a style='color:#000' href="+url+"?Start="+i+"&"+param+">"+i+"</a></li>");
 				}
 			}
 			if(pageNum < totalPage){
-				pageSb.append("<li><a href="+url+"?Start="+(pageNum+1)+"&"+param+">下一页</a></li>");
+				pageSb.append("<li><a href="+url+"?Start="+(pageNum+1)+"&"+param+" style='color:#000'>下一页</a></li>");
 			}else{
 				pageSb.append("<li class='disabled'><a href=#>下一页</a></li>");
 			}
 			if(pageNum == totalPage){
 				pageSb.append("<li class='disabled'><a href=#>最后一页</a></li>");
 			}else{
-				pageSb.append("<li><a href="+url+"?Start="+totalPage+"&"+param+">最后一页</a></li>");
+				pageSb.append("<li><a href="+url+"?Start="+totalPage+"&"+param+" style='color:#000'>最后一页</a></li>");
 			}
 			return pageSb.toString();
 		}	

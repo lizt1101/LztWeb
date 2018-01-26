@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.lzt.Bo.PingCountBo;
+import com.lzt.Bo.ReadCountBo;
 import com.lzt.Bo.TimeCountBo;
 import com.lzt.Bo.typeCountBo;
 import com.lzt.exception.LztException;
+import com.lzt.vo.ArtVo;
 import org.apache.solr.client.solrj.SolrServerException;
 
 import com.lzt.dto.ArticleDto;
@@ -23,11 +26,11 @@ public interface ArticleService {
 
 	public Map<String,Object> getPageArticleList(Integer start,Integer pagesize,String type,String time);
 
-	public Map<String,Object> getPageArticleList1(Integer start,Integer pagesize);
+	public Map<String,Object> getPageArticleList1(Integer start,Integer pagesize,String key) throws IOException, SolrServerException;
 
 	public Article getDetail(Integer id);
 
-	public void deleteById(String ids) throws LztException;
+	public void deleteById(String ids) throws LztException, IOException, SolrServerException;
 
 	public void getCountByTypeId(Integer typeId) throws LztException;
 
@@ -38,4 +41,12 @@ public interface ArticleService {
 	public List<typeCountBo> getTypeCount();
 
 	public List<TimeCountBo> getTimeCount();
+
+	public List<ReadCountBo> getReadCount() throws LztException;
+
+	public List<PingCountBo> getPingCount() throws LztException;
+
+	public Map<String,Object> getSerachArt(String keyword, Integer start, Integer pagesize) throws IOException, SolrServerException;
+
+	public List<ArtVo> getArtVoList(List<Integer> ids);
 }
