@@ -35,16 +35,16 @@
         .flex-direction-nav li a{display:block;width:50px;height:50px;overflow:hidden;cursor:pointer;position:absolute;}
         .flex-direction-nav li a.flex-prev{left:40px;background:url(Index/images/prev.png) center center no-repeat;}
         .flex-direction-nav li a.flex-next{right:40px;background:url(Index/images/next.png) center center no-repeat;}
-        #serachBt{
+        /*#serachBt{
             cursor: pointer;
         }
         #serachInput{
-            width: 80%;
-            height: 65%;
-            margin: 3% auto;
+            width: 70%;
+            height: 80%;
+            margin: 7px auto;
             box-shadow: 0px 0px 15px #90d7ec;
             border:1px solid #90d7ec;
-            /*border: 1px solid #fff*/
+            !*border: 1px solid #fff*!
         }
         #serachBt{
             width: 20%;
@@ -53,7 +53,7 @@
             text-align: center;
             padding:10px 0;
             background-color:#90d7ec;
-        }
+        }*/
         /*弹幕开始*/
         .dm{width:100%;height:600px;position:absolute;top:520px;left:0;display:none}
         .dm .d_screen
@@ -79,7 +79,7 @@
     </style>
     <script>
         $(document).ready(function(){
-            var int = self.setInterval("serachK()",5000);
+            var int = self.setInterval("serachK1()",5000);
             $('.flexslider').flexslider({
                 directionNav: true,
                 pauseOnAction: false,
@@ -96,16 +96,16 @@
             var t = document.documentElement.scrollTop||document.body.scrollTop;
             if(t >= 70 && t<470){
                 $("#Myhead").attr("style","background-color:rgba(255,255,255,0.3);");
-                $(".head-li li a").attr("style","color:#fff");
-                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title.png")
+                /*$(".head-li li a").attr("style","color:#fff");*/
+              /*  $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title1.png")*/
             }else if(t>470){
                 $("#Myhead").attr("style","background-color:rgba(255,255,255,0.6);");
-                $(".head-li li a").attr("style","color:#000");
-                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title1.png")
+               /* $(".head-li li a").attr("style","color:#fff");*/
+               /* $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title.png")*/
             }else{          //恢复正常
-                $("#Myhead").attr("style","background-color:#000000");
-                $(".head-li li a").attr("style","color:#fff");
-                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title.png")
+                $("#Myhead").attr("style","background-color:rgba(255,255,255,0.4)");
+               /* $(".head-li li a").attr("style","color:#000");*/
+               /* $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title1.png")*/
             }
         }
         function dianji(){
@@ -219,17 +219,17 @@
         }
 
 
-        function serachK(){
+        function serachK1(){
             var r =  Math.ceil(Math.random()*255);
             var g = Math.ceil(Math.random()*255);
             var b = Math.ceil(Math.random()*255);
-            var color = getColor();
-            $("#serachInput").attr("style","border:1px solid "+color+";box-shadow: 0px 0px 15px "+color);
-            $("#serachBt").attr("style","background-color:"+color);
+            var color = getColor1();
+         /*   $("#serachInput").attr("style","border:1px solid "+color+";box-shadow: 0px 0px 15px "+color);
+            $("#serachBt").attr("style","background-color:"+color);*/
             $(".liuyan").attr("style","box-shadow: 0px 0px 35px "+color+";background-color:"+color);
         }
 
-        function getColor(){
+        function getColor1(){
             var colorValue="0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
             var colorArray = colorValue.split(",");
             var color="#";
@@ -288,7 +288,7 @@
             }
         }
 
-        function aboutWeb(){
+        function aboutMe(){
             var web = $("#web");
             var webHead = $("#webHead");
             var webContentHtml = '';
@@ -296,7 +296,7 @@
                 return false;
             }
             $.post("${ctx}/aboutWeb.do",function(result){
-                web.text(result.data.content);
+                web.text(result.data.description);
                 webContentHtml += "<img class='am-circle' style='width: 100%;height: 100%' alt='头像' src='http://172.31.61.19:9091/lztWeb/"+result.data.headImg+"'/>";
                 webHead.append(webContentHtml);
             },'json');
@@ -340,13 +340,7 @@
             var key = $("#key").val();
 
         }
-        function serachKey(){
-            var searchkey = $("#mykey").val();
-            if(searchkey.trim()==''){
-                return false;
-            }
-            return true;
-        }
+
 
         function Myurl(){
             var ul = $("#urlLi");
@@ -374,111 +368,106 @@
 <!--背景动画start-->
 <script src="${ctx}/static/bootStrap/js/canvas-nest.min.js"></script>
 <!--背景动画end-->
-<div id="head">
-  <%--<div id="Myhead">
-        <!-- <button onclick="huan()" style="">风格</button>-->
-        <div style="float: right;width: 40%;height: 100%;">
-            <ul class="head-li">
-                <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/504263.png">&nbsp;<a href="#" data-toggle="modal" data-target="#myModal">风格</a></li>
-                <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_silver_1.png">&nbsp;<a href="#">分类</a></li>
-                <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_gold_3.png">&nbsp;<a href="#ph">排行</a></li>
-                <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/504223.png">&nbsp;<a href="#">首页</a></li>
-            </ul>
-        </div>
-        <div style="float: right;width: 20%;height: 100%">
-            <img src="${ctx}/static/bootStrap/MyImage/title.png" style="width: 100%;height: 100%" id="title"/>
-        </div>
-        <div style="float: right;width: 40%;height: 100%">
-        </div>
-  </div>--%>
-  <jsp:include page="/common/head.jsp"></jsp:include>
-  <div id="lunbo">
-      <form action="toIndex.do"  method="get" onsubmit="return serachKey()">
-        <div style="width: 40%;height: 90px; top: 100px; left: 30%;position: absolute; z-index: 3;">
-                <div id="serachInput" boder="1px solid rgba(255,255,255,0.6)">
-                        <div style="width: 80%;height: 100%;float: left;">
-                            <div style="width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)">
-                                <img src="${ctx}/static/bootStrap/MyImage/sousuo.png" style="width: 100%;height: 100%">
-                            </div>
-                            <div style="width: 88%;height: 100%;float: left">
-                                <input type="text" id="mykey"  value="${param.key}" class="form-control" placeholder="请输入关键字" name="key" style="color:#fff;height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px">
-                            </div>
-                        </div>
-                        <div id="serachBt">
-                            <span style="color: #fff;font-size: 22px;"><button type="submit" style="width: 100%;height: 100%;border: 0;background-color: rgba(255,255,255,0)">搜&nbsp&nbsp索</button></span>
-                        </div>
-                </div>
-        </div>
-      </form>
-        <div class="jq22-container">
-            <div class="flexslider">
-                <ul class="slides">
-                    <c:forEach var="lb" items="${LbList}">
-                        <%--<a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'></a>--%>
-                            <li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/${lb.lbTu}) 50% 0 no-repeat;">
-                                <c:if test="${lb.lbType==1}">
-                                    <a target='view_window' href='${lb.lbUrl}'>
-                                        <div style="width: 100%;height: 100%;"></div>
-                                    </a>
-                                </c:if>
-                                <c:if test="${lb.lbType==0}">
-                                    <a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'>
-                                        <div style="width: 100%;height: 100%;"></div>
-                                    </a>
-                                </c:if>
-                            </li>
-                    </c:forEach>
-                    <%--<li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/lzt1516588666552.png) 50% 0 no-repeat;"></li>
-                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img2.png) 50% 0 no-repeat;"></li>
-                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img3.png) 50% 0 no-repeat;"></li>
-                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img4.png) 50% 0 no-repeat;"></li>
-                    <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img5.png) 50% 0 no-repeat;"></li>--%>
-                </ul>
-            </div>
-        </div>
-  </div>
-</div>
-<div style="width: 100%;">
-    <div style="text-align: center;" id="san2">
-        <img src="${ctx}/static/bootStrap/MyImage/san.png" onclick="dianji()" style="width: 100px;height: 50px;cursor:pointer">
-    </div>
-    <div class="head_div2">
-        <div style="width: 100%;height: 600px;position: absolute;">
-            <div style="width: 30%;height: 50%;margin: 0 auto;background:url('${ctx}/static/bootStrap/MyImage/liuyanban.png') 0 50% no-repeat;background-size: 100%">
-
-            </div>
-            <div style="width: 100%;height: 60px;margin-top: 230px">
-                <div style="width: 90%;height: 100%;float: left;" >
-                    <div style="width: 100%;height: 100%;margin: 0 auto;display: none;" id="showliu">
-                        <div style="width: 75%;height:100%;float: left;">
-                            <input type="text" id="s_txt"  maxlength="30" class="form-control" placeholder="请输入留言(最多输入30个字符)" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
-                        </div>
-                        <div style="width: 10%;height: 100%;float: left;">
-                            <img style="width: 100%;height: 100%" src="${ctx}/Login/getLiuYanCode.do" onclick="this.setAttribute('src','${ctx}/Login/getLiuYanCode.do?x='+Math.random());"
-                                 alt="验证码" title="点击更换" class="imgcode"/>
-                        </div>
-                        <div style="width: 15%;height: 100%;float: left;">
-                            <input id="y_code" type="text" maxlength="4" class="form-control" placeholder="请输入验证码。。。" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
+<jsp:include page="/common/head.jsp"></jsp:include>
+<div class="container" style="padding: 0">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div id="head">
+                <%--<div id="Myhead">
+                      <!-- <button onclick="huan()" style="">风格</button>-->
+                      <div style="float: right;width: 40%;height: 100%;">
+                          <ul class="head-li">
+                              <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/504263.png">&nbsp;<a href="#" data-toggle="modal" data-target="#myModal">风格</a></li>
+                              <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_silver_1.png">&nbsp;<a href="#">分类</a></li>
+                              <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_gold_3.png">&nbsp;<a href="#ph">排行</a></li>
+                              <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/504223.png">&nbsp;<a href="#">首页</a></li>
+                          </ul>
+                      </div>
+                      <div style="float: right;width: 20%;height: 100%">
+                          <img src="${ctx}/static/bootStrap/MyImage/title.png" style="width: 100%;height: 100%" id="title"/>
+                      </div>
+                      <div style="float: right;width: 40%;height: 100%">
+                      </div>
+                </div>--%>
+                <div id="lunbo">
+                    <div class="jq22-container">
+                        <div class="flexslider">
+                            <ul class="slides">
+                                <c:forEach var="lb" items="${LbList}">
+                                    <%--<a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'></a>--%>
+                                    <li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/${lb.lbTu}) 50% 0 no-repeat;">
+                                        <c:if test="${lb.lbType==1}">
+                                            <a target='view_window' href='${lb.lbUrl}'>
+                                                <div style="width: 100%;height: 100%;"></div>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${lb.lbType==0}">
+                                            <a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'>
+                                                <div style="width: 100%;height: 100%;"></div>
+                                            </a>
+                                        </c:if>
+                                    </li>
+                                </c:forEach>
+                                <%--<li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/lzt1516588666552.png) 50% 0 no-repeat;"></li>
+                                <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img2.png) 50% 0 no-repeat;"></li>
+                                <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img3.png) 50% 0 no-repeat;"></li>
+                                <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img4.png) 50% 0 no-repeat;"></li>
+                                <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img5.png) 50% 0 no-repeat;"></li>--%>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="liuyan">
-                    <a onclick="liuyan()" style="text-decoration: none;font-size: 18px;color: #fff;" id="liuyan" href="javascript:void(0);">留&nbsp言&nbsp&nbsp(点我呀!!!)</a>
-                    <a onclick="liuyan1()" style="text-decoration: none;font-size: 24px;display: none" id="liuyan1" href="javascript:void(0);">留&nbsp&nbsp言</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="width: 100%;">
+    <div class="container" style="padding: 0">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div style="text-align: center;" id="san2">
+                    <img src="${ctx}/static/bootStrap/MyImage/san.png" onclick="dianji()" style="width: 100px;height: 50px;cursor:pointer">
+                </div>
+                <div class="head_div2">
+                    <div style="width: 100%;height: 600px;position: absolute;">
+                        <div style="width: 30%;height: 50%;margin: 0 auto;background:url('${ctx}/static/bootStrap/MyImage/liuyanban.png') 0 50% no-repeat;background-size: 100%">
+
+                        </div>
+                        <div style="width: 100%;height: 60px;margin-top: 230px">
+                            <div style="width: 82%;height: 100%;float: left;" >
+                                <div style="width: 100%;height: 100%;margin: 0 auto;display: none;" id="showliu">
+                                    <div style="width: 75%;height:100%;float: left;">
+                                        <input type="text" id="s_txt"  maxlength="30" class="form-control" placeholder="请输入留言(最多输入30个字符)" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
+                                    </div>
+                                    <div style="width: 10%;height: 100%;float: left;">
+                                        <img style="width: 100%;height: 100%" src="${ctx}/Login/getLiuYanCode.do" onclick="this.setAttribute('src','${ctx}/Login/getLiuYanCode.do?x='+Math.random());"
+                                             alt="验证码" title="点击更换" class="imgcode"/>
+                                    </div>
+                                    <div style="width: 15%;height: 100%;float: left;">
+                                        <input id="y_code" type="text" maxlength="4" class="form-control" placeholder="请输入验证码。。。" style="height: 100%;background-color: rgba(255,255,255,0.1);font-size: 20px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="liuyan">
+                                <a onclick="liuyan()" style="text-decoration: none;font-size: 18px;color: #fff;" id="liuyan" href="javascript:void(0);">留&nbsp言&nbsp&nbsp(点我呀!!!)</a>
+                                <a onclick="liuyan1()" style="text-decoration: none;font-size: 24px;display: none" id="liuyan1" href="javascript:void(0);">留&nbsp&nbsp言</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 100%;height: 550px;position: absolute">
+                        <canvas id="mycanvas" height="550">
+                        </canvas>
+                    </div>
+                </div>
+                <div style="text-align: center" id="san">
+                    <img src="${ctx}/static/bootStrap/MyImage/san.png" onclick="dianji()" style="width: 100px;height: 50px;cursor:pointer">
                 </div>
             </div>
         </div>
-        <div style="width: 100%;height: 550px;position: absolute">
-            <canvas id="mycanvas" height="550">
-            </canvas>
-        </div>
-    </div>
-    <div style="text-align: center" id="san">
-        <img src="${ctx}/static/bootStrap/MyImage/san.png" onclick="dianji()" style="width: 100px;height: 50px;cursor:pointer">
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-xs-8" id="body_content">
+            <div class="col-md-8 col-xs-8" id="body_content" style="box-shadow: 0px 0px 15px #fff;">
                 <div style="width: 100%;height: 50px;margin: 0 auto">
                     <marquee direction=left behavior=scroll
                              scrollamount=10 scrolldelay=10 align=top bgcolor=#ffffff
@@ -533,9 +522,9 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a class="a_ce" data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapseZero" style="text-decoration: none" onclick="aboutWeb()">
+                                           href="#collapseZero" style="text-decoration: none" onclick="aboutMe()">
                                             <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_gold_1.png">
-                                            <span><strong>&nbsp&nbsp关&nbsp于&nbsp本&nbsp站</strong></span>
+                                            <span><strong>&nbsp&nbsp关&nbsp于&nbsp我</strong></span>
                                         </a>
                                     </h4>
                                 </div>
@@ -544,7 +533,7 @@
                                         <div style="width: 60%;height: 150px;margin: 20px auto" id="webHead">
 
                                         </div>
-                                        <span id="web"></span>
+                                        <strong><span style="font-size: 15px">签&nbsp;名&nbsp;:</span></strong>&nbsp;<span id="web"></span>
                                     </div>
                                 </div>
                             </div>
@@ -648,8 +637,8 @@
             </div>
         </div>
     </div>
-    <div id="foot" style="width: 100%;height: 30px;text-align: center;border-top: 2px solid #ccc;line-height: 30px;margin-top: 10px">
-        <span>小错的博客</span>
+    <div id="foot" style="font-size:10px;width: 100%;height: 30px;text-align: center;border-top: 2px solid #ccc;line-height: 30px;margin-top: 10px">
+        <span>Copyright © 2018 LiZiTao lztizfl.com All Rights Reserved.</span>
     </div>
 </div>
 </body>

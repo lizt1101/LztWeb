@@ -50,12 +50,12 @@
             var t = document.documentElement.scrollTop||document.body.scrollTop;
             if(t >= 70){
                 $("#Myhead").attr("style","background-color:rgba(255,255,255,0.3);");
-                $(".head-li li a").attr("style","color:#000");
-                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title1.png");
+               /* $(".head-li li a").attr("style","color:#fff");
+                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title.png");*/
             }else{          //恢复正常
-                $("#Myhead").attr("style","background-color:#000");
-                $(".head-li li a").attr("style","color:#fff");
-                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title.png");
+                $("#Myhead").attr("style","background-color: rgba(255,255,255,0.4);");
+            /*    $(".head-li li a").attr("style","color:#000");
+                $("#title").attr("src","${ctx}/static/bootStrap/MyImage/title1.png");*/
             }
         }
         function tijiaoComment(){
@@ -103,9 +103,9 @@
         }
         function pinglun(){
             $("#showPing").attr("style","display:none");
-            $(".hideComment1").attr("style","width: 95%;height: 40px;margin-top: 30px;");
-            $(".hideComment2").attr("style","width: 90%;height: 20px;margin:0 auto;");
-            $(".hideComment3").attr("style","width: 90%;margin: 50px auto;");
+            $(".hideComment1").attr("style","width: 90%;height: 40px;margin:0 auto;");
+            $(".hideComment2").attr("style","width: 90%;height: 50px;margin:0 auto;");
+            $(".hideComment3").attr("style","width: 90%;margin: 0 auto;");
             $.post("${ctx}/Comment/commentList.do",{"id":${article.id}},
                 function(result){
                     var html = '';
@@ -174,41 +174,50 @@
 <!--背景动画start-->
 <script src="${ctx}/static/bootStrap/js/canvas-nest.min.js"></script>
 <!--背景动画end-->
-<jsp:include page="/common/head.jsp"></jsp:include>
-
+    <jsp:include page="/common/head.jsp"></jsp:include>
 <div class="container" style="margin-top: 100px;">
     <div class="row">
         <div class="col-md-1 col-xs-1" style=""></div>
-        <div class="col-md-10 col-xs-10" id="body_content" style="background-color: rgba(255,255,255,0.6);box-shadow: 0px 0px 15px #000">
-            <div style="width: 100%;height: 80px">
-                <div style="width: 90%;height: 100%;margin: 0 auto;line-height: 80px;text-align: center;font-size: 25px">
-                    <span><strong>${article.title}</strong></span>
+        <div class="col-md-10 col-xs-10" id="body_content" style="background-color: rgba(255,255,255,0.6);box-shadow: 0px 0px 15px #fff;padding: 0">
+            <div style="width: 100%;box-shadow: 0 0 70px 30px rgb(249, 249, 249) inset;
+            <c:set var="t" value="false" />
+            <c:forEach var="tu" items="${tuList}">
+            <c:if test="${tu.tuType=='5'}">background: url('http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}') 0 50% no-repeat;background-size: 100% 100%;
+                <c:set var="t" value="true" />
+            </c:if>
+            </c:forEach>
+            <c:if test="${t==false}"> background: url('${ctx}/static/bootStrap/MyImage/detailstou.jpg') 0 50% no-repeat;background-size: 100% 100%;</c:if>">
+
+                <div style="width: 100%;height: 80px">
+                    <div style="width: 90%;height: 100%;margin: 0 auto;line-height: 80px;text-align: center;font-size: 25px">
+                        <span><strong>${article.title}</strong></span>
+                    </div>
                 </div>
-            </div>
-            <div style="width: 100%;height: 30px">
-                <div style="width: 50%;height: 100%;margin: 0 auto;line-height: 30px;text-align: center;font-size: 15px">
-                    <span>分类&nbsp:&nbsp&nbsp${article.typeName}</span>
+                <div style="width: 100%;height: 30px">
+                    <div style="width: 50%;height: 100%;margin: 0 auto;line-height: 30px;text-align: center;font-size: 15px">
+                        <span><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/categories.png" />&nbsp;&nbsp;${article.typeName}</span>
+                    </div>
                 </div>
-            </div>
-            <div style="width: 90%;height: 50px;margin: 0 auto">
-                <div style="width: 30%;height: 100%;margin: 0 auto;line-height: 50px;text-align: left;font-size: 16px;float: left">
-                    <!-- <div class="bdsharebuttonbox">
-                         <a href="#" class="bds_more" data-cmd="more"></a>
-                         <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
-                         <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-                         <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
-                         <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">
-                         </a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
-                     </div>
-                     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},
-                         "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='' +
-                             'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>-->
-                </div>
-                <div style="width: 40%;height: 100%;margin: 0 auto;line-height: 50px;text-align: center;font-size: 16px;float: left">
-                    <span>发表时间&nbsp:&nbsp&nbsp<fmt:formatDate value="${article.createTime}" pattern="yyyy年MM月dd日 HH:mm:ss"></fmt:formatDate></span>
-                </div>
-                <div style="width: 30%;height: 100%;margin: 0 auto;line-height: 50px;text-align: right;font-size: 16px;float: left">
-                    <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/yd.png" style="width: 20px;height: 20px">&nbsp<span style="font-size: 12px">${article.reads}人阅读&nbsp&nbsp</span>
+                <div style="width: 90%;height: 50px;margin: 0 auto">
+                    <div style="width: 30%;height: 100%;margin: 0 auto;line-height: 50px;text-align: left;font-size: 16px;float: left">
+                        <!-- <div class="bdsharebuttonbox">
+                             <a href="#" class="bds_more" data-cmd="more"></a>
+                             <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                             <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                             <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+                             <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">
+                             </a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                         </div>
+                         <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},
+                             "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='' +
+                                 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>-->
+                    </div>
+                    <div style="width: 40%;height: 100%;margin: 0 auto;line-height: 50px;text-align: center;font-size: 16px;float: left">
+                        <span><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/date.png">&nbsp;发表时间&nbsp;&nbsp;<fmt:formatDate value="${article.createTime}" pattern="yyyy年MM月dd日 HH:mm:ss"></fmt:formatDate></span>
+                    </div>
+                    <div style="width: 30%;height: 100%;margin: 0 auto;line-height: 50px;text-align: right;font-size: 16px;float: left">
+                        <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/yd.png" style="width: 20px;height: 20px">&nbsp<span style="font-size: 12px">${article.reads}人阅读&nbsp&nbsp</span>
+                    </div>
                 </div>
             </div>
             <div style="width: 90%;margin: 20px auto; font-size: 16px;">
@@ -230,6 +239,8 @@
             <div style="width: 90%;height: 50px;margin: 0 auto">
                 ${pageBean}
             </div>
+            <div style="width: 90%;height: 30px;">
+            </div>
             <div style="width: 90%;height: 50px;margin: 40px auto" id="showPing">
                 <c:if test="${article.pings!=0}">
                     <button type="button" onclick="pinglun()" class="btn btn-info" style="width: 100%;color: #000;height: 100%;font-size: 18px;border: 0;box-shadow: 0px 0px 15px #90d7ec;background-color: rgba(255,255,255,0.5)">点击查看${article.pings}条评论</button>
@@ -238,17 +249,20 @@
                     <button type="button" data-toggle="modal" data-target="#comment" class="btn btn-info" style="width: 100%;color: #000;height: 100%;font-size: 18px;border: 0;box-shadow: 0px 0px 15px #90d7ec;background-color: rgba(255,255,255,0.5)">快来评论我吧!</button>
                 </c:if>
             </div>
-            <div style="width: 95%;height: 40px;margin-top: 30px;display: none" class="hideComment1">
-                <div style="height: 100%;width: 20%;float: right">
+            <div style="width: 90%;height: 30px;margin:0 auto;display: none" class="hideComment2">
+                <img src="${ctx}/static/bootStrap/MyImage/bian1.png" style="width: 100%;height: 100%">
+            </div>
+            <div style="width: 90%;height: 40px;display: none" class="hideComment1">
+                <div style="height: 100%;width: 20%;margin: 0 auto">
                     <img src="${ctx}/static/bootStrap/MyImage/comment.png" style="width: 100%;height: 100%">
                 </div>
                 <%-- <div style="height: 100%;width: 5%;float: right">
                      <img src="${ctx}/static/bootStrap/MyImage/bi.png" style="width: 90%;height: 90%">
                  </div>--%>
             </div>
-            <div style="width: 90%;height: 20px;margin:0 auto;display: none" class="hideComment2">
-                <img src="${ctx}/static/bootStrap/MyImage/hua.png" style="width: 100%;height: 100%">
-            </div>
+           <%-- <div style="width: 90%;height: 30px;margin:0 auto;display: none" class="hideComment2">
+                <img src="${ctx}/static/bootStrap/MyImage/bian1.png" style="width: 100%;height: 100%">
+            </div>--%>
             <div style="width: 90%;margin: 0px auto;display: none" class="hideComment3">
             </div>
             <div style="width: 90%;height: 50px;float: right;"></div>
@@ -256,8 +270,8 @@
         <div class="col-md-1 col-xs-1"></div>
     </div>
 </div>
-<div id="foot" style="width: 100%;height: 30px;text-align: center;line-height: 30px;margin-top: 10px;">
-    <span>小错的博客</span>
+<div id="foot" style="font-size:10px;;width: 100%;height: 30px;text-align: center;line-height: 30px;margin-top: 10px;">
+    <span>Copyright © 2018 LiZiTao lztizfl.com All Rights Reserved.</span>
 </div>
 <div id="top">
     <div class="edit">

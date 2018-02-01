@@ -13,6 +13,16 @@ public class DateUtil {
 		return timestamp;
 	}
 
+	public static String getYear(Date createDate){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		return sdf.format(createDate);
+	}
+
+	public static String getYMD(Date createDate){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(createDate);
+	}
+
 	public static void main(String[] args) {
 		System.out.println(DateUtil.getTimeStamp());
 	}

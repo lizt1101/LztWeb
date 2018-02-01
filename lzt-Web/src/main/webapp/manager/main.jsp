@@ -26,6 +26,10 @@
         }
         #saletyOff:hover{
             color: red;
+            position: relative;
+            left: -1px;
+            top: -1px;
+            font-weight: bold;
         }
     </style>
 <script type="text/javascript">
@@ -211,12 +215,19 @@
 <body class="easyui-layout">
 <div data-options="region:'north',split:true" style="height:50px">
     <div style="width: 30%;height: 40px;float: right;line-height: 40px">
+        <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/exit.ico" style="width: 24px;height: 24px;margin-top: 8px;float:right;">
         <span style="font-size: 17px;float: right">您好,${CurrentUser.username}&nbsp&nbsp&nbsp&nbsp&nbsp
-            <a id="saletyOff" href="javascript:logout()" style="cursor: hand;text-decoration: none;">安全退出</a>
+            <a id="saletyOff" href="javascript:logout()" style="cursor: hand;text-decoration: none;">安全退出
+            </a>
         </span>
     </div>
+    <div style="float: left;width: 25%;height: 40px;">
+        <img src="${ctx}/logo.png" style="height: 100%;width: 100%">
+    </div>
 </div>
-<div data-options="region:'south',split:true" style="height:50px;"></div>
+<div data-options="region:'south',split:true" style="height:50px;text-align: center;line-height: 40px">
+    Copyright © 2018 LiZiTao lztizfl.com All Rights Reserved.
+</div>
 <div data-options="region:'west',title:'菜单',split:true" style="width:150px;">
     <div id="ea" class="easyui-accordion" fit="true">
         <div title="文章管理" data-options="iconCls:'icon-home'" style="overflow:auto;padding:10px;">
@@ -246,6 +257,10 @@
             <a href="javascript:openTab('优化图管理','QiTaImageList.jsp','icon-addQitaImage')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-addQitaImage'" style="width: 150px">优化图管理</a>
             <a href="javascript:openTab('添加优化图','addQiTaImage.jsp','icon-addQitaImages')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-addQitaImages'" style="width: 150px">添加优化图</a>
             <a href="javascript:updateHCQt()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-arrow_refresh'" style="width: 150px">刷新优化图片缓存</a>
+        </div>
+        <div title="网站发展管理" data-options="iconCls:'icon_devlopgl'" style="padding:10px;">
+            <a href="javascript:openTab('网站发展列表','webDevelopList.jsp','icon_developlist')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon_developlist'" style="width: 150px">网站发展列表</a>
+            <a href="javascript:openTab('添加网站发展','addDevelop.jsp','icon_addDevelop')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon_addDevelop'" style="width: 150px">添加网站发展</a>
         </div>
         <div title="系统管理" data-options="iconCls:'icon-item'" style="padding:10px;">
             <a href="javascript:openTab('本站介绍','myWeb.jsp','icon-world')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-world'" style="width: 150px">本站介绍</a>
@@ -279,9 +294,7 @@
     <span id="warmError" style="display:none;color:red"></span>
 </div>
 <div id="updategundong">
-    <textarea id="text" style="width: 90%;height: 55%;font-size: 20px" maxlength="50" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)">
-
-    </textarea><br>
+    <textarea id="text" style="width: 90%;height: 55%;font-size: 20px" maxlength="50" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)"></textarea><br>
     还可输入<span id="zf">50</span>个字符
     <%--<input style="width: 90%;height: 40px;font-size: 20px;" maxlength="50" class="form-control"/>--%>
 </div>

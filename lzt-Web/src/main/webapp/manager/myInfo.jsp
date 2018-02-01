@@ -158,9 +158,9 @@
                </td>
            </tr>
            <tr>
-               <td style="font-size: 15px;font-weight: bold;text-align: center;height: 120px">个人说明:</td>
+               <td style="font-size: 15px;font-weight: bold;text-align: center;height: 300px">签名:</td>
                <td style="display: none" class="show" style="text-align: center">
-                    <textarea readonly="readonly" class="form-control" id="description" type="text" name="description">${CurrentUser.description}</textarea>
+                    <textarea readonly="readonly" style="height: 300px" class="form-control" id="description" type="text" name="description">${CurrentUser.description}</textarea>
                 </td>
            </tr>
            <tr>

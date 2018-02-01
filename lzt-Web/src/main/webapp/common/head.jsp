@@ -13,8 +13,6 @@
                 background: url("http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}") 0 50% no-repeat;background-size: 100%;
             </c:if>
         </c:forEach>
-       /* border: 1px solid red;*/
-       /* background: url("${ctx}/static/qitatu/head1.png") 0 50% no-repeat;background-size: 100%;*/
     }
     .head-li{
         display:inline;
@@ -28,7 +26,7 @@
     .head-li li a{
         text-decoration: none;
         font-size: 18px;
-        color: white;
+        color: #000;
     }
     .head-li li:hover{
         position: relative;
@@ -68,9 +66,29 @@
         font-family: '微软雅黑', '文泉驿正黑', '宋体';
         line-height: 30px;
     }
+    #serachBt{
+        cursor: pointer;
+    }
+    #serachInput{
+        width: 75%;
+        height: 80%;
+        margin: 7px auto;
+        box-shadow: 0px 0px 15px #90d7ec;
+        border:1px solid #90d7ec;
+       /* border: 1px solid red;*/
+    }
+    #serachBt{
+        width: 20%;
+        height: 100%;
+        float: right;
+        text-align: center;
+        padding:10px 0;
+        background-color:#90d7ec;
+    }
 </style>
 <script>
         $(document).ready(function(){
+            var int = self.setInterval("serachK()",5000);
             var gundong = document.documentElement.clientHeight < (document.documentElement.offsetHeight-4);
             var bj = $.cookie('bj');
             var a = $.cookie('index');
@@ -94,6 +112,25 @@
                 }
             }
         })
+        function serachK(){
+            var r =  Math.ceil(Math.random()*255);
+            var g = Math.ceil(Math.random()*255);
+            var b = Math.ceil(Math.random()*255);
+            var color = getColor();
+            $("#serachInput").attr("style","border:1px solid "+color+";box-shadow: 0px 0px 15px "+color);
+            $("#serachBt").attr("style","background-color:"+color);
+        }
+
+        function getColor(){
+            var colorValue="0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f";
+            var colorArray = colorValue.split(",");
+            var color="#";
+            for(var i=0;i<6;i++){
+                color+=colorArray[Math.floor(Math.random()*16)];
+            }
+            return color;
+        }
+
         function createcookie(a,isPu,url){
             var gundong = document.documentElement.clientHeight < (document.documentElement.offsetHeight-4);
             $.cookie('index',a,{ expires: 1,path:'/',secure:false,raw:false});
@@ -118,27 +155,55 @@
             createcookie(a,isPu,url);
 
         }
+        function serachKey(){
+            var searchkey = $("#mykey").val();
+            if(searchkey.trim()==''){
+                return false;
+            }
+            return true;
+        }
     </script>
-<div id="Myhead" style="background-color: #000">
-    <div style="float: right;width: 40%;height: 100%;">
+<div id="Myhead" style="background-color: rgba(255,255,255,0.4);">
+    <div style="float: right;width: 30%;height: 100%;">
         <ul class="head-li">
             <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/504263.png">&nbsp;<a href="#" data-toggle="modal" data-target="#myModal">风格</a></li>
-            <%--<li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_silver_1.png">&nbsp;<a href="#">分类</a></li>
-            <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/award_star_gold_3.png">&nbsp;<a href="#ph">排行</a></li>--%>
+            <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/zhan.png" style="width: 24px;height: 24px">&nbsp;<a href="${ctx}/time/toTime.do">关于网站</a></li>
             <li><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/504223.png">&nbsp;<a href="${ctx}/toIndex.do">首页</a></li>
         </ul>
     </div>
-    <div style="float: right;width: 20%;height: 100%">
-        <img src="${ctx}/static/bootStrap/MyImage/title.png" style="width: 100%;height: 100%" id="title"/>
-    </div>
     <div style="float: right;width: 40%;height: 100%;">
-
+        <form action="${ctx}/toIndex.do"  method="get" onsubmit="return serachKey()">
+            <div style="width: 90%;height: 70px;">
+                <div id="serachInput" boder="1px solid rgba(255,255,255,0.6)">
+                    <div style="width: 80%;height: 100%;float: left;">
+                        <div style="width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)">
+                            <img src="${ctx}/static/bootStrap/MyImage/sousuo.png" style="width: 100%;height: 100%">
+                        </div>
+                        <div style="width: 88%;height: 100%;float: left">
+                            <input type="text" id="mykey"  value="${param.key}" class="form-control" placeholder="请输入关键字" name="key" style="height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px">
+                        </div>
+                    </div>
+                    <div id="serachBt">
+                        <span style="color: #fff;font-size: 20px;">
+                            <button type="submit" style="width: 100%;height: 100%;border: 0;background-color: rgba(255,255,255,0)">搜&nbsp&nbsp索</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="float: right;width: 10%;height: 100%;">
+    </div>
+    <div style="float: right;width: 20%;height: 100%;">
+        <div style="width: 100%;height: 50px;margin-top: 10px">
+            <img src="${ctx}/logo.png" style="height: 100%;width: 100%">
+        </div>
     </div>
 </div>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content" style="background:url('${ctx}/static/bootStrap/MyImage/headbj.png') 0% 50% no-repeat;background-size: 100%">
+        <div class="modal-content" style="background:url('${ctx}/static/bootStrap/MyImage/hehua.png') 0% 50% no-repeat;background-size: 100%">
             <div class="modal-header" style="text-align: center">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="color: red">
                     &times;

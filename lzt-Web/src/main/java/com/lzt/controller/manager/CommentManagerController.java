@@ -123,13 +123,13 @@ public class CommentManagerController {
         return null;
     }
 
-    /**
+   /* *//**
      * 获取超长评论内容
      * @param id
      * @param req
      * @param res
      * @return
-     */
+     *//*
     @RequestMapping("/getComment.do")
     public String getComment(String id,String type,HttpServletRequest req, HttpServletResponse res){
         log.info("获取超长内容,评论id"+id);
@@ -145,7 +145,7 @@ public class CommentManagerController {
         }
         restServer.send(JsonUtil.jsonToString(messageVo));
         return null;
-    }
+    }*/
 
 
 

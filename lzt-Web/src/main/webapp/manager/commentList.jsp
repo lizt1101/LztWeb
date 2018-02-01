@@ -4,7 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>评论列表</title>
     <script type="text/javascript" src="${ctx}/static/easyui/jquery.min.js"></script>
@@ -42,7 +41,7 @@
                 return '暂未回复';
             }
             if(value.length>20){
-                return  "<a href='javascript:void(0)' onclick='showComment("+row.id+","+1+")'>"+value.substring(0,20)+"..."+"</a>";
+                return  "<a href='javascript:void(0)' onclick='showComment("+row.id+',"'+value+'"'+")'>"+value.substring(0,20)+"..."+"</a>";
             }
             return value;
         }
@@ -124,15 +123,13 @@
         }
         function showAllComment(value,row){
             if(value.length>20){
-                return  "<a href='javascript:void(0)' onclick='showComment("+row.id+","+2+")'>"+value.substring(0,20)+"..."+"</a>";
+                return  "<a href='javascript:void(0)' onclick='showComment("+row.id+',"'+value+'"'+")'>"+value.substring(0,20)+"..."+"</a>";
             }
             return value;
         }
 
-        function showComment(id,type){
-            $.post("${ctx}/manager/comment/getComment.do",{"id":id,"type":type},function(result){
-                $("#Commenttext").text(result.data);
-            },'json');
+        function showComment(id,data){
+            $("#Commenttext").text(data);
             $("#Mycomment").dialog({
                 title:'查看全部内容',
                 width:600,
@@ -201,9 +198,7 @@
    <span id="Commenttext"></span>
 </div>
 <div id="reply">
-    <textarea id="replyText" placeholder="请输入回复。。。" style="width: 90%;height: 90%;font-size: 20px" maxlength="500" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)">
-
-    </textarea><br>
+    <textarea id="replyText" placeholder="请输入回复。。。" style="width: 90%;height: 90%;font-size: 20px" maxlength="500" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)"></textarea><br>
     还可输入<span id="re">500</span>个字符
     <%--<input style="width: 90%;height: 40px;font-size: 20px;" maxlength="50" class="form-control"/>--%>
 </div>

@@ -43,8 +43,8 @@ public class LeaveMessageController {
         log.info("留言");
         RestServer restServer = new RestServer(req,res);
         MessageVo messageVo = new MessageVo();
-       /* String ip = IpUtil.getIpAddr(req);
-        leaveMessage.setIP(ip);*/
+        String ip = IpUtil.getIpAddr(req);
+        leaveMessage.setkIP(ip);
         try {
             String sessionCode = (String)req.getSession().getAttribute("LiuyanImage");
             if(!code.equalsIgnoreCase(sessionCode)){

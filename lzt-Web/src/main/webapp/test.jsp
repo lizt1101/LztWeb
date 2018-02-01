@@ -142,7 +142,23 @@
     <a href=/lztWeb/toIndex.do?Start=2&key=哈哈& style='color:#000'>最后一页</a>
 </li>
 
-
+<%--<form action="toIndex.do"  method="get" onsubmit="return serachKey()">
+                        <div style="width: 40%;height: 90px; top: 100px; left: 30%;position: absolute; z-index: 3;">
+                            <div id="serachInput" boder="1px solid rgba(255,255,255,0.6)">
+                                <div style="width: 80%;height: 100%;float: left;">
+                                    <div style="width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)">
+                                        <img src="${ctx}/static/bootStrap/MyImage/sousuo.png" style="width: 100%;height: 100%">
+                                    </div>
+                                    <div style="width: 88%;height: 100%;float: left">
+                                        <input type="text" id="mykey"  value="${param.key}" class="form-control" placeholder="请输入关键字" name="key" style="color:#fff;height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px">
+                                    </div>
+                                </div>
+                                <div id="serachBt">
+                                    <span style="color: #fff;font-size: 22px;"><button type="submit" style="width: 100%;height: 100%;border: 0;background-color: rgba(255,255,255,0)">搜&nbsp&nbsp索</button></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>--%>
 
 
 

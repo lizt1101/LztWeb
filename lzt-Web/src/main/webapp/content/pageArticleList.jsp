@@ -15,7 +15,7 @@
                 </div>
                 <div style="width: 100%;height: 15%;">
                     <span><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/date.png">&nbsp;<fmt:formatDate value="${art.createTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></span>
-                    <span style="float: right"><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/eye.png"> 阅读(${art.readCount})&nbsp&nbsp
+                    <span style="float: right"><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/66-eye.png" style="width:24px;height: 24px"> 阅读(${art.readCount})&nbsp&nbsp
                     <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/user_edit.png"> 评论(${art.pingCount})</span>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                </div>
                <div style="width: 100%;height: 15%;">
                    <span><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/date.png">&nbsp;<fmt:formatDate value="${art.createTime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></span>
-                   <span style="float: right"><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/eye.png"> 阅读(${art.readCount})&nbsp&nbsp
+                   <span style="float: right"><img src="${ctx}/static/bootStrap/MyImage/xiaoImg/66-eye.png" style="width:24px;height: 24px"> 阅读(${art.readCount})&nbsp&nbsp
                     <img src="${ctx}/static/bootStrap/MyImage/xiaoImg/user_edit.png"> 评论(${art.pingCount})</span>
                </div>
            </div>

@@ -180,7 +180,7 @@
             <th data-options="field:'headImg'" width="15" align="center" halign="center" formatter="headImg">头像</th>
             <th data-options="field:'username'" width="10" align="center" halign="center" >用户名</th>
             <th data-options="field:'nickname'" width="10" align="center" halign="center">用户昵称</th>
-            <th data-options="field:'description'" width="40" align="center" halign="center">个人说明</th>
+            <th data-options="field:'description'" width="40" align="center" halign="center">签名</th>
             <th data-options="field:'createTime'" width="15" align="center" halign="center">创建时间</th>
             <th data-options="field:'updateTime'" width="15" align="center" halign="center">更新时间</th>
             <th data-options="field:'cz'" width="10" align="center" halign="center" formatter="caozuoUser">操作</th>

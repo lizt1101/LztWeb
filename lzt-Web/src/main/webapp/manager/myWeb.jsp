@@ -51,9 +51,7 @@
         <div style="width: 80%;height: 80%;margin: 0 auto;">
             <p style="font-size: 20px" id="webP">
             </p>
-            <textarea id="text" style="width: 100%;height: 100%;font-size: 20px;display: none" maxlength="500">
-
-            </textarea>
+            <textarea id="text" style="width: 100%;height: 100%;font-size: 20px;display: none" maxlength="500"></textarea>
         </div>
         <div style="width: 80%;height: 20%;margin: 0 auto;">
             <button id="bj" type="button" class="btn btn-info" style="float: right" onclick="editWeb()">编辑</button>

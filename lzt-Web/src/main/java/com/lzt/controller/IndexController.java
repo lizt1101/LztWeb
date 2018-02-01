@@ -174,24 +174,24 @@ public class IndexController {
 	}
 
 	/**
-	 * 关于本站
+	 * 关于我
 	 * @param req
 	 * @param res
 	 * @return
 	 */
 	@RequestMapping("/aboutWeb.do")
 	public String aboutWeb(HttpServletRequest req, HttpServletResponse res){
-		log.info("关于本站");
+		log.info("关于我");
 		RestServer restServer = new RestServer(req,res);
 		MessageVo messageVo = new MessageVo();
 		User user = userService.getuser(1);
-		WebContent webContent = webService.getWebConttent(1);
+		/*WebContent webContent = webService.getWebConttent(1);
 		WebVo webVo = new WebVo();
 		webVo.setContent(webContent.getWebContent());
-		webVo.setHeadImg(user.getHeadImg());
+		webVo.setHeadImg(user.getHeadImg());*/
 		messageVo.setCode(MessageVo.SUCCESS);
 		messageVo.setMessage("获取成功！");
-		messageVo.setData(webVo);
+		messageVo.setData(user);
 		restServer.send(JsonUtil.jsonToString(messageVo));
 		return null;
 	}

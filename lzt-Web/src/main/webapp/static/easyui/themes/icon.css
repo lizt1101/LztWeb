@@ -251,3 +251,12 @@
 .icon_lztStop{
 	background: url("usericons/lzt_stop.png") no-repeat center center;
 }
+.icon_addDevelop{
+	background: url("usericons/world_add.png") no-repeat center center;
+}
+.icon_developlist{
+	background: url("usericons/page_world.png") no-repeat center center;
+}
+.icon_devlopgl{
+	background: url("usericons/page_white_world.png") no-repeat center center;
+}
