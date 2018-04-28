@@ -10,7 +10,7 @@
         left:0; top:0;
         <c:forEach var="tu" items="${tuList}">
             <c:if test="${tu.tuType=='1'}">
-                background: url("http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}") 0 50% no-repeat;background-size: 100%;
+                background: url("http://172.31.61.25:9091/lztWeb/style/${tu.tuUrl}") 0 50% no-repeat;background-size: 100%;
             </c:if>
         </c:forEach>
     }
@@ -96,17 +96,17 @@
             if(bj==null){
                 var li = $(".bj2");
                 li.attr("style","border:3px solid #ccc");
-                $("body").attr("style","background:url(http://172.31.61.19:9091/lztWeb/bj/bj2.jpg)");
+                $("body").attr("style","background:url(http://172.31.61.25:9091/lztWeb/bj/bj2.jpg)");
             }else{
                 var li = $(".bj"+a);
                 li.attr("style","border:3px solid #ccc");
                 if(isPu=="0"){
-                    $("body").attr("style","background:url(http://172.31.61.19:9091/lztWeb/bj/"+bj+")");
+                    $("body").attr("style","background:url(http://172.31.61.25:9091/lztWeb/bj/"+bj+")");
                 }else{
                    if(gundong){
-                        $("body").attr("style","background:url(http://172.31.61.19:9091/lztWeb/bj/"+bj+") 0 50% no-repeat;background-size: 100% 100%");
+                        $("body").attr("style","background:url(http://172.31.61.25:9091/lztWeb/bj/"+bj+") 0 50% no-repeat;background-size: 100% 100%");
                     }else{
-                        $("body").attr("style","height:"+window.screen.availHeight+"px;background:url(http://172.31.61.19:9091/lztWeb/bj/"+bj+") 0 50% no-repeat;background-size: 100% 100%");
+                        $("body").attr("style","height:"+window.screen.availHeight+"px;background:url(http://172.31.61.25:9091/lztWeb/bj/"+bj+") 0 50% no-repeat;background-size: 100% 100%");
                     }
 
                 }
@@ -137,12 +137,12 @@
             $.cookie('bj',url,{ expires: 1,path:'/',secure:false,raw:false});
             $.cookie('isPu',isPu,{ expires: 1,path:'/',secure:false,raw:false});
             if(isPu=="0"){
-                $("body").attr("style","height:"+window.screen.availHeight+";background:url(http://172.31.61.19:9091/lztWeb/bj/"+url+")");
+                $("body").attr("style","height:"+window.screen.availHeight+";background:url(http://172.31.61.25:9091/lztWeb/bj/"+url+")");
             }else{
                if(gundong){
-                    $("body").attr("style","background:url(http://172.31.61.19:9091/lztWeb/bj/"+url+") 0 50% no-repeat;background-size: 100% 100%");
+                    $("body").attr("style","background:url(http://172.31.61.25:9091/lztWeb/bj/"+url+") 0 50% no-repeat;background-size: 100% 100%");
                 }else{
-                    $("body").attr("style","height:"+window.screen.availHeight+"px;background:url(http://172.31.61.19:9091/lztWeb/bj/"+url+") 0 50% no-repeat;background-size: 100% 100%");
+                    $("body").attr("style","height:"+window.screen.availHeight+"px;background:url(http://172.31.61.25:9091/lztWeb/bj/"+url+") 0 50% no-repeat;background-size: 100% 100%");
               }
             }
 
@@ -217,10 +217,10 @@
                     <c:forEach var="bj" items="${bjList}">
                         <li onclick="xz(${bj.id},${bj.isPu},'${bj.bjUrl}')" class="bj${bj.id}">
                             <c:if test="${bj.isPu=='0'}">
-                                <div style="width: 120px;height:120px;background: url('http://172.31.61.19:9091/lztWeb/bj/${bj.bjUrl}')"></div>
+                                <div style="width: 120px;height:120px;background: url('http://172.31.61.25:9091/lztWeb/bj/${bj.bjUrl}')"></div>
                             </c:if>
                             <c:if  test="${bj.isPu=='1'}">
-                                <div style="width: 120px;height:120px;background: url('http://172.31.61.19:9091/lztWeb/bj/${bj.bjUrl}') 0 50% no-repeat;background-size: 100% 100%;"></div>
+                                <div style="width: 120px;height:120px;background: url('http://172.31.61.25:9091/lztWeb/bj/${bj.bjUrl}') 0 50% no-repeat;background-size: 100% 100%;"></div>
                             </c:if>
                             <p class="p">${bj.bjName}</p>
                         </li>

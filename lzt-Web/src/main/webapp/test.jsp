@@ -33,91 +33,91 @@
 <div class='xuxian'></div>
 
 
-"<div style='width: 100%;height: 280px;'>" +
-"<div style='width: 100%;height: 80px;'>" +
-"<div style='width: 10%;height: 100%;float: left;'> " +
-"<img class='img-circle' alt='图片' style='width: 100%;height: 100%' src='http://172.31.61.19:9091/lztWeb/comment/"+result.data[x].headImg+"' >" +
-"</div>" +
-"<div style='width:90%;height: 100%;float: left;line-height: 80px'>" +
-"<span style='margin-left: 10px;font-weight: bold;font-size: 18px;'>"+result.data[x].name+"</span>" +
-"<span style='float: right;font-size: 14px;margin-top: 20px'>"+result.data[x].createDate+"</span>" +
-"</div>" +
-"</div>" +
-"<div style='width: 100%;height: 100px;'> " +
-"<div style='width: 6%;height: 100%;float: left;'> </div> " +
-"<div style='width: 94%;height: 100%;float: left;font-size: 16px;'> " +
-"<p><span style='margin-left: 10px;'>&nbsp;&nbsp;&nbsp;&nbsp;"+result.data[x].comment+"</span> </p>" +
-"</div> " +
-"</div> " +
-"<div style='width: 100%;height: 70px;'> " +
-"<div style='width: 6%;height: 100%;float: left;'> </div> " +
-"<span style='font-size: 16px'><strong>作者回复:</strong>啦啦啦啦啦啦啦啦啦啦 </span> " +
-"</div>" +
-"<div style='width: 100%;height: 30px;'> " +
-"<span style='font-size: 16px;float: right;font-size: 14px'>回复时间:2018年01月09日 15:30:00 </span> " +
-"</div>" +
-"</div>" +
-"<div class='xuxian'></div>";
-<li onclick="xz(1)" class="bj1">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj1.jpg')"></div>
-    <p class="p">1234</p>
+'<div style='width: 100%;height: 280px;'>' +
+'<div style='width: 100%;height: 80px;'>' +
+'<div style='width: 10%;height: 100%;float: left;'> ' +
+'<img class='img-circle' alt='图片' style='width: 100%;height: 100%' src='http://172.31.61.19:9091/lztWeb/comment/'+result.data[x].headImg+'' >' +
+'</div>' +
+'<div style='width:90%;height: 100%;float: left;line-height: 80px'>' +
+'<span style='margin-left: 10px;font-weight: bold;font-size: 18px;'>'+result.data[x].name+'</span>' +
+'<span style='float: right;font-size: 14px;margin-top: 20px'>'+result.data[x].createDate+'</span>' +
+'</div>' +
+'</div>' +
+'<div style='width: 100%;height: 100px;'> ' +
+'<div style='width: 6%;height: 100%;float: left;'> </div> ' +
+'<div style='width: 94%;height: 100%;float: left;font-size: 16px;'> ' +
+'<p><span style='margin-left: 10px;'>&nbsp;&nbsp;&nbsp;&nbsp;'+result.data[x].comment+'</span> </p>' +
+'</div> ' +
+'</div> ' +
+'<div style='width: 100%;height: 70px;'> ' +
+'<div style='width: 6%;height: 100%;float: left;'> </div> ' +
+'<span style='font-size: 16px'><strong>作者回复:</strong>啦啦啦啦啦啦啦啦啦啦 </span> ' +
+'</div>' +
+'<div style='width: 100%;height: 30px;'> ' +
+'<span style='font-size: 16px;float: right;font-size: 14px'>回复时间:2018年01月09日 15:30:00 </span> ' +
+'</div>' +
+'</div>' +
+'<div class='xuxian'></div>';
+<li onclick='xz(1)' class='bj1'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj1.jpg')'></div>
+    <p class='p'>1234</p>
 </li>
-<li onclick="xz(2)" class="bj2">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj2.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(2)' class='bj2'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj2.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(3)" class="bj3">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj3.jpg')">
+<li onclick='xz(3)' class='bj3'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj3.jpg')'>
     </div>
-    <p class="p">123</p>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(4)" class="bj4">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj4.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(4)' class='bj4'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj4.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(5)" class="bj5">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj5.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(5)' class='bj5'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj5.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(6)" class="bj6">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj6.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(6)' class='bj6'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj6.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(7)" class="bj7">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj7.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(7)' class='bj7'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj7.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(8)" class="bj8">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj8.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(8)' class='bj8'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj8.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(9)" class="bj9">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj9.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(9)' class='bj9'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj9.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(10)" class="bj10">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj10.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(10)' class='bj10'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj10.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(11)" class="bj11">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj11.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(11)' class='bj11'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj11.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(12)" class="bj12">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj12.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(12)' class='bj12'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj12.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(13)" class="bj13">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj13.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(13)' class='bj13'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj13.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(14)" class="bj14">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj14.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(14)' class='bj14'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj14.jpg')'></div>
+    <p class='p'>123</p>
 </li>
-<li onclick="xz(15)" class="bj15">
-    <div style="width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj15.jpg')"></div>
-    <p class="p">123</p>
+<li onclick='xz(15)' class='bj15'>
+    <div style='width: 120px;height:120px;background: url('${ctx}/static/bootStrap/MyImage/bj/bj15.jpg')'></div>
+    <p class='p'>123</p>
 </li>
 
 
@@ -142,19 +142,19 @@
     <a href=/lztWeb/toIndex.do?Start=2&key=哈哈& style='color:#000'>最后一页</a>
 </li>
 
-<%--<form action="toIndex.do"  method="get" onsubmit="return serachKey()">
-                        <div style="width: 40%;height: 90px; top: 100px; left: 30%;position: absolute; z-index: 3;">
-                            <div id="serachInput" boder="1px solid rgba(255,255,255,0.6)">
-                                <div style="width: 80%;height: 100%;float: left;">
-                                    <div style="width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)">
-                                        <img src="${ctx}/static/bootStrap/MyImage/sousuo.png" style="width: 100%;height: 100%">
+<%--<form action='toIndex.do'  method='get' onsubmit='return serachKey()'>
+                        <div style='width: 40%;height: 90px; top: 100px; left: 30%;position: absolute; z-index: 3;'>
+                            <div id='serachInput' boder='1px solid rgba(255,255,255,0.6)'>
+                                <div style='width: 80%;height: 100%;float: left;'>
+                                    <div style='width: 12%;height: 100%;float: left;background-color: rgba(255,255,255,0.1)'>
+                                        <img src='${ctx}/static/bootStrap/MyImage/sousuo.png' style='width: 100%;height: 100%'>
                                     </div>
-                                    <div style="width: 88%;height: 100%;float: left">
-                                        <input type="text" id="mykey"  value="${param.key}" class="form-control" placeholder="请输入关键字" name="key" style="color:#fff;height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px">
+                                    <div style='width: 88%;height: 100%;float: left'>
+                                        <input type='text' id='mykey'  value='${param.key}' class='form-control' placeholder='请输入关键字' name='key' style='color:#fff;height: 100%;background-color: rgba(255,255,255,0.1);border: 0;font-size: 20px'>
                                     </div>
                                 </div>
-                                <div id="serachBt">
-                                    <span style="color: #fff;font-size: 22px;"><button type="submit" style="width: 100%;height: 100%;border: 0;background-color: rgba(255,255,255,0)">搜&nbsp&nbsp索</button></span>
+                                <div id='serachBt'>
+                                    <span style='color: #fff;font-size: 22px;'><button type='submit' style='width: 100%;height: 100%;border: 0;background-color: rgba(255,255,255,0)'>搜&nbsp&nbsp索</button></span>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +162,28 @@
 
 
 
-
+<div class='zzsc-content'>
+    <canvas id='clock7_' width='250px' height='250px'>
+    </canvas>
+</div>
+<script src='${ctx}/static/bootStrap/js/canvas_clock.js'></script>
+<script>
+    clockd7_={
+        'indicate': true,
+        'indicate_color': '#222',
+        'dial1_color': '#666600',
+        'dial2_color': '#81812e',
+        'dial3_color': '#9d9d5c',
+        'time_add': 1,
+        'time_24h': true,
+        'date_add':1,
+        'date_add_color': '#999',
+        'bg_color':'rgba(255, 255, 255, 0)',
+    };
+    var c = document.getElementById('clock7_');
+    cns7_ = c.getContext('2d');
+    clock_dots(235,cns7_,clockd7_);
+</script>
 
 
 

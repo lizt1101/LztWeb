@@ -28,9 +28,9 @@
                     $("#sort").slider("setValue",result.data.sort)
                     if(result.data.isPu=="0"){
                         $("#isPu").attr("checked","checked");
-                        $("body").attr("style","background:url(http://172.31.61.19:9091/lztWeb/bj/"+result.data.bjUrl+");padding: 10px");
+                        $("body").attr("style","background:url(http://172.31.61.25:9091/lztWeb/bj/"+result.data.bjUrl+");padding: 10px");
                     }else{
-                        $("body").attr("style","background:url(http://172.31.61.19:9091/lztWeb/bj/"+result.data.bjUrl+") 0 50% no-repeat;background-size: 100% 100%;padding: 10px");
+                        $("body").attr("style","background:url(http://172.31.61.25:9091/lztWeb/bj/"+result.data.bjUrl+") 0 50% no-repeat;background-size: 100% 100%;padding: 10px");
                     }
             },'json');
         });

@@ -25,7 +25,7 @@ public class solrTest {
 	
 	@Before
 	public void init(){
-		URL =  "http://127.0.0.1:8080/solr/my";
+		URL =  "http://172.31.61.25:8081/solr/lztWeb";
 	}
 
 	@Test

@@ -24,7 +24,7 @@
             });
         });
         function bjImg(value,row){
-            var bj = 'http://172.31.61.19:9091/lztWeb/bj/'+value;
+            var bj = 'http://172.31.61.25:9091/lztWeb/bj/'+value;
             if(row.isPu=="0"){
                 return 'background:url('+bj+');height:150px';
             }else{

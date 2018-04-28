@@ -88,8 +88,14 @@
 
             var mywidth = window.screen.width;
             $("#mycanvas").attr("width",mywidth);
-
         })
+
+       /* $(window).resize(function () {
+            /!*alert("侧边宽度"+$("#jkDiv").width());*!/
+            var width = $("#jkDiv").width();
+            $("#sjWidth").val(width);
+
+        })*/
 
         window.onscroll= function(){
             //变量t是滚动条滚动时，距离顶部的距离
@@ -297,7 +303,7 @@
             }
             $.post("${ctx}/aboutWeb.do",function(result){
                 web.text(result.data.description);
-                webContentHtml += "<img class='am-circle' style='width: 100%;height: 100%' alt='头像' src='http://172.31.61.19:9091/lztWeb/"+result.data.headImg+"'/>";
+                webContentHtml += "<img class='am-circle' style='width: 100%;height: 100%' alt='头像' src='http://172.31.61.25:9091/lztWeb/"+result.data.headImg+"'/>";
                 webHead.append(webContentHtml);
             },'json');
         }
@@ -395,7 +401,7 @@
                             <ul class="slides">
                                 <c:forEach var="lb" items="${LbList}">
                                     <%--<a target='view_window' href='${ctx}/article/getArtDetails/${lb.lbAid}.do'></a>--%>
-                                    <li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/${lb.lbTu}) 50% 0 no-repeat;">
+                                    <li style="background:url(http://172.31.61.25:9091/lztWeb/lunbo/${lb.lbTu}) 50% 0 no-repeat;">
                                         <c:if test="${lb.lbType==1}">
                                             <a target='view_window' href='${lb.lbUrl}'>
                                                 <div style="width: 100%;height: 100%;"></div>
@@ -408,7 +414,7 @@
                                         </c:if>
                                     </li>
                                 </c:forEach>
-                                <%--<li style="background:url(http://172.31.61.19:9091/lztWeb/lunbo/lzt1516588666552.png) 50% 0 no-repeat;"></li>
+                                <%--<li style="background:url(http://172.31.61.25:9091/lztWeb/lunbo/lzt1516588666552.png) 50% 0 no-repeat;"></li>
                                 <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img2.png) 50% 0 no-repeat;"></li>
                                 <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img3.png) 50% 0 no-repeat;"></li>
                                 <li style="background:url(${ctx}/static/bootStrap/MyImage/images/img4.png) 50% 0 no-repeat;"></li>
@@ -484,10 +490,10 @@
             <div class="col-md-3 col-xs-3" id="body_ce">
                 <div class="row">
                     <!--background: url('timebj.jpg');border: 1px solid red;background-size: 100% 100%;-->
-                    <div class="col-md-12 col-xs-12" style="height:280px;
+                    <div id="jkDiv" class="col-md-12 col-xs-12" style="height:280px;
                     <c:set var="l" value="false" />
                     <c:forEach var="tu" items="${tuList}">
-                        <c:if test="${tu.tuType=='4'}">background: url('http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}');background-size: 100% 100%;
+                        <c:if test="${tu.tuType=='4'}">background: url('http://172.31.61.25:9091/lztWeb/style/${tu.tuUrl}');background-size: 100% 100%;
                         <c:set var="l" value="true" />
                         </c:if>
                     </c:forEach>
@@ -629,7 +635,7 @@
                     <div class="col-md-12 col-xs-12" style="height: 300px;margin-top: 30px;padding: 0;">
                         <c:forEach var="tu" items="${tuList}">
                             <c:if test="${tu.tuType=='3'}">
-                                <img src="http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}" style="width: 100%;height: 100%">
+                                <img src="http://172.31.61.25:9091/lztWeb/style/${tu.tuUrl}" style="width: 100%;height: 100%">
                             </c:if>
                         </c:forEach>
                     </div>

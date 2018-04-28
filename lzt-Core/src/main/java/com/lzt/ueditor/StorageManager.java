@@ -187,7 +187,7 @@ public class StorageManager {
               FileInputStream in=new FileInputStream(tmpFile); 
               FtpUtil t = new FtpUtil();
               System.out.println("*******************");
-          	  t.uploadFile("172.31.61.19",21,null,null,
+          	  t.uploadFile("172.31.61.25",21,null,null,
           			"", remoteDir,filename,in);
               //t.uploadFile("文件服务器IP", 端口, "用户名", "密码", "", remoteDir, filename, in);
           }catch (Exception e) {

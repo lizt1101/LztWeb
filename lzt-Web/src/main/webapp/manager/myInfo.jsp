@@ -44,7 +44,7 @@
     </style>
     <script>
         function setImg(imgName){
-            $("#up-img-touch img").attr("src","http://172.31.61.19:9091/lztWeb/${CurrentUser.username}/"+imgName);
+            $("#up-img-touch img").attr("src","http://172.31.61.25:9091/lztWeb/${CurrentUser.username}/"+imgName);
         }
 
        function updateInfo(){
@@ -84,7 +84,7 @@
                <%--  <td class="info">${CurrentUser.headImg}</td>--%>
                <td>
                    <div class="up-img-cover"  id="up-img-touch" >
-                       <img class="am-circle" alt="点击图片上传" src="http://172.31.61.19:9091/lztWeb/${CurrentUser.headImg}" >
+                       <img class="am-circle" alt="点击图片上传" src="http://172.31.61.25:9091/lztWeb/${CurrentUser.headImg}" >
                    </div>
                   <%-- <div><a style="text-align: center; display: block;"  id="pic"></a></div>--%>
                    <!--图片上传框-->

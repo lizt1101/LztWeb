@@ -34,11 +34,12 @@ public class FtpUtil {
         FTPClient ftp = new FTPClient();  
         try {  
             int reply;  
-            //ftp.connect(host, port);// 连接FTP服务器  
-            ftp.connect(host);
+            ftp.connect(host, port);// 连接FTP服务器
+            //ftp.connect(host);
             // 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器  
-            ftp.login("anonymous", "123@126.com");// 没用户名密码的登录  
-            reply = ftp.getReplyCode();  
+            ftp.login("anonymous", "123@126.com");// 没用户名密码的登录
+           /* ftp.login(username, password);*/
+            reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {  
                 ftp.disconnect();  
                 return result;  
@@ -87,8 +88,8 @@ public class FtpUtil {
     public static void main(String[] args) throws FileNotFoundException {
     	//上传
     	InputStream is = new FileInputStream("F://1.txt");
-    	boolean a = FtpUtil.uploadFile("172.31.61.19",21,null,null,
-    			"/java", "/2017-11-23","123.txt",is);
+    	boolean a = FtpUtil.uploadFile("172.31.61.25",21,"lizitao","123456",
+    			"/home/ftp_lzt", "/2018-04-21","123.txt",is);
     	System.out.println(a);
 
     	//下载

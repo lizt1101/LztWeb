@@ -115,7 +115,7 @@
                         html += "<div style='width: 100%;'>" +
                                     "<div style='width: 100%;margin-top: 20px;'>" +
                                         "<div style='width: 10%;height: 80px;float: left;margin-top: 20px'> " +
-                                            "<img class='img-circle' alt='图片' style='border:1px solid #ccc;width: 100%;height: 100%' src='http://172.31.61.19:9091/lztWeb/phead/"+result.data[x].headImg+"' >" +
+                                            "<img class='img-circle' alt='图片' style='border:1px solid #ccc;width: 100%;height: 100%' src='http://172.31.61.25:9091/lztWeb/phead/"+result.data[x].headImg+"' >" +
                                         "</div>" +
                                         "<div style='width:90%;height: 80px;float: left;line-height: 80px;margin-top: 20px'>" +
                                             "<span style='margin-left: 10px;font-weight: bold;font-size: 18px;'>"+result.data[x].name+"</span>" +
@@ -182,7 +182,7 @@
             <div style="width: 100%;box-shadow: 0 0 70px 30px rgb(249, 249, 249) inset;
             <c:set var="t" value="false" />
             <c:forEach var="tu" items="${tuList}">
-            <c:if test="${tu.tuType=='5'}">background: url('http://172.31.61.19:9091/lztWeb/style/${tu.tuUrl}') 0 50% no-repeat;background-size: 100% 100%;
+            <c:if test="${tu.tuType=='5'}">background: url('http://172.31.61.25:9091/lztWeb/style/${tu.tuUrl}') 0 50% no-repeat;background-size: 100% 100%;
                 <c:set var="t" value="true" />
             </c:if>
             </c:forEach>

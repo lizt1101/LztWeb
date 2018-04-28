@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * @Author:lizitao
  * @Create 2017/11/28
  * @Version 1.0
- * @Copyright:2016 www.jointem.com
+ * @Copyright:
  */
 public class RestServer {
 

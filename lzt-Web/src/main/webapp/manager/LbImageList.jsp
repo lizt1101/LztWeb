@@ -60,7 +60,7 @@
             return btnHtml;
         }
         function LbTu(value){
-            var lb = 'http://172.31.61.19:9091/lztWeb/lunbo/'+value;
+            var lb = 'http://172.31.61.25:9091/lztWeb/lunbo/'+value;
             return "background:url("+lb+") 50% 0 no-repeat;background-size: 100% 100%;height:150px";
         }
         function Lbtu(value){

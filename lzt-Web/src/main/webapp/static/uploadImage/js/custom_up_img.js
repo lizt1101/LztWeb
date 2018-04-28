@@ -101,7 +101,7 @@ $(function() {
                 	if(data.result=="ok"){
 
                         setImg(data.file);
-                		//$("#up-img-touch img").attr("src","http://172.31.61.19:9091/lztWeb/admin1/"+data.file);
+                		//$("#up-img-touch img").attr("src","http://172.31.61.25:9091/lztWeb/admin1/"+data.file);
                 	
                 		var img_name=data.file;
                 		//console.log(img_name);

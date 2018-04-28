@@ -89,7 +89,7 @@
             });
         }
         function tu(value,row){
-            var tu = 'http://172.31.61.19:9091/lztWeb/style/'+value;
+            var tu = 'http://172.31.61.25:9091/lztWeb/style/'+value;
             if(row.tuType=='4' || row.tuType=='3'){
                 return "background:url("+tu+") 0 50% no-repeat;background-size:100% 100%;height:100px";
             }else{

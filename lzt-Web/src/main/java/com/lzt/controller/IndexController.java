@@ -27,6 +27,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,6 +57,8 @@ public class IndexController {
 	private UserService userService;
 	@Autowired
 	private UrlService urlService;
+	@Value("${ftp.IP}")
+	private String ftpUrl;
 
 	@RequestMapping("/toIndex.do")
 	public String toIndex(@RequestParam(value="Start",required=false) String start,

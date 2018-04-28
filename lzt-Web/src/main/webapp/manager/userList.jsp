@@ -27,7 +27,7 @@
             $("#dgUser").datagrid("reload");
         }
         function headImg(value){
-            return '<img class="img-circle" style="width: 100px;height: 100px" alt="头像" src="http://172.31.61.19:9091/lztWeb/'+value+'">';
+            return '<img class="img-circle" style="width: 100px;height: 100px" alt="头像" src="http://172.31.61.25:9091/lztWeb/'+value+'">';
         }
         function addUser(){
             $('#win').window({

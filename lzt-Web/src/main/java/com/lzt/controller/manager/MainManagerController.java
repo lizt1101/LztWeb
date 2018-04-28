@@ -10,7 +10,6 @@ public class MainManagerController {
 	@RequestMapping("/tomain.do")
 	public String toMain(){
 		return "manager/main";
-		
 	}
 
 
